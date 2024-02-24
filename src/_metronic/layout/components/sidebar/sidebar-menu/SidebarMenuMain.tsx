@@ -26,6 +26,12 @@ const SidebarMenuMain = () => {
         title='Setup'
         fontIcon='bi-app-indicator'
       />
+      <SidebarMenuItem
+        to='/committee'
+        icon='element-11' 
+        title='Committee'
+        fontIcon='bi-app-indicator'
+      />
       
         </>
         )

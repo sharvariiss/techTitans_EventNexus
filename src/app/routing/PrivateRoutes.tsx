@@ -8,6 +8,7 @@ import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import { RentCar } from '../modules/rent_car/RentCar'
 import Setup from '../modules/institute_setup/Setup'
+import { Committee } from '../modules/committees/Committee'
 
 
 const PrivateRoutes = () => {
@@ -20,6 +21,7 @@ const PrivateRoutes = () => {
         {/* Pages */}
         <Route path='rent-car' element={<RentCar />} />
         <Route path='institute-setup' element={<Setup />} />
+        <Route path='committee' element={<Committee />} />
         </Route>
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
