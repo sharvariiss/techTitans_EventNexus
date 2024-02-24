@@ -40,7 +40,7 @@ const Committee = () => {
           style={{cursor: 'pointer'}}
         >
           {/* <KTIcon iconName='plus' className='fs-2' /> */}
-          Create New Committees
+          Edit Committee
         </button>
         {isAddCommitteeeModalOpen && (
           <CommitteeForm show={true} onClose={handleCloseModal} />

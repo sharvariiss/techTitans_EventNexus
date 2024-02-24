@@ -39,7 +39,7 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
             <div className='modal-dialog modal-dialog-centered mw-750px'>
               <div className='modal-content'>
                 <div className='modal-header'>
-                  <h2 className='fw-bold'>Add Committee</h2>
+                  <h2 className='fw-bold'>Committee</h2>
                   <div
                     className='btn btn-icon btn-sm btn-active-icon-primary'
                     data-kt-roles-modal-action='close'

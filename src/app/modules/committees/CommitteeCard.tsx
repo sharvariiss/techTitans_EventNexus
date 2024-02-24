@@ -8,6 +8,7 @@ interface CommitteeCardProps {
 }
 
 const CommitteeCard: React.FC<CommitteeCardProps> = ({ name, department, contactInfo }) => {
+  
   return (
     <div
       className="card"
