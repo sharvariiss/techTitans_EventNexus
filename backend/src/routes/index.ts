@@ -5,7 +5,7 @@ import { Create_Departments, Delete_Departments, Get_Departments } from '../cont
 import { Create_Event_Category, Delete_Event_Category, Get_Event_Category } from '../controllers/event_category';
 import { Create_Positions, Delete_Positions, Get_Positions } from '../controllers/positions';
 import { Create_Venue, Delete_Venue, Get_Venue } from '../controllers/venue';
-//import CreateInstitute, { GetInstitute } from 'src/controllers/institute';
+import { CreateCommittee, GetCommittee, UpdateCommittee } from '../controllers/editCommittee';
 
 
 
@@ -44,6 +44,10 @@ router.delete('/api/delete-position',Delete_Positions);
 router.post('/api/create-venue',Create_Venue);
 router.get('/api/get-venue',Get_Venue);
 router.delete('/api/delete-venue',Delete_Venue);
+
+router.post('/api/create-committee', CreateCommittee);
+router.get('/api/get-committee', GetCommittee);
+router.put('/api/update-committee', UpdateCommittee);
 
 
 
