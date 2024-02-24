@@ -7,7 +7,6 @@ import TopBarProgress from 'react-topbar-progress-indicator'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import { RentCar } from '../modules/rent_car/RentCar'
-import { Committee } from '../modules/committees/Committee'
 
 const PrivateRoutes = () => {
 
@@ -15,10 +14,9 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/Committee' />} />
+        <Route path='auth/*' element={<Navigate to='/rent-car' />} />
         {/* Pages */}
         <Route path='rent-car' element={<RentCar />} />
-        <Route path='committee' element={<Committee />} />
         </Route>
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
