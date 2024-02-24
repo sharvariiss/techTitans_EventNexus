@@ -14,10 +14,16 @@ const SidebarMenuMain = () => {
         title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
         fontIcon='bi-app-indicator'
       /> */}
-      <SidebarMenuItem
+      {/* <SidebarMenuItem
         to='/rent-car'
         icon='element-11' 
         title='Rent Car'
+        fontIcon='bi-app-indicator'
+      /> */}
+      <SidebarMenuItem
+        to='/institute-setup'
+        icon='element-11' 
+        title='Setup'
         fontIcon='bi-app-indicator'
       />
       
