@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Navigate, useNavigate} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 import {useAuth} from '../core/Auth'
 
 const initialValues = {
@@ -158,7 +158,7 @@ const Login = () => {
                   <div className='text-gray-500 text-center fw-semibold fs-6'>
                     Not a Member yet?
                   </div>
-                  {/* <a href="../../demo2/dist/authentication/layouts/creative/sign-up.html" className="link-primary">Sign up</a></div> */}
+                  <Link to='/auth/registration' className="link-primary">Sign up</Link>
                 </form>
               </div>
               <div className='d-flex flex-stack px-lg-10'>
