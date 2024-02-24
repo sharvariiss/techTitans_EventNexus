@@ -15,18 +15,18 @@ const Committee = () => {
     setIsAddCommitteeModalOpen(false)
   }
   const committees = [
+    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567895' },
     { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
-    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
-    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
+    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234565890' },
     { name: 'XYZ Committee', department: 'ABC Department', contactInfo: '1234567890' },
     { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
-    { name: 'XYZ Committee', department: 'ABC Department', contactInfo: '1234567890' },
+    { name: 'XYZ Committee', department: 'ABC Department', contactInfo: '1234557890' },
+    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234557890' },
     { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
     { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
     { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
-    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
-    { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
-    { name: 'XYZ Committee', department: 'ABC Department', contactInfo: '1234567890' },
+    // { name: 'XYZ Committee', department: 'ABC Department',  contactInfo: '1234567890' },
+    // { name: 'XYZ Committee', department: 'ABC Department', contactInfo: '1234567890' },
     // Add more committee objects as needed
     
   ];
