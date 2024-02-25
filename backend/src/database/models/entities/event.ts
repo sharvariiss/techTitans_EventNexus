@@ -12,6 +12,7 @@ import {
 import {VenueManagement} from './venueManagement'
 import {Event_Category} from './event_category'
 import {FeedBack} from './feedback'
+import { EventRegistrations } from './eventRegistrations'
 
 @Entity(`${process.env.EVENT_TABLE}`)
 export class Event extends BaseEntity {
@@ -46,6 +47,13 @@ venue: VenueManagement[];
   })
   // Create a property to access the associated event_category entity
   event_category: Event_Category
+
+  // Define one-to-many relationships with the User entity 
+  @OneToMany(
+    () => EventRegistrations,
+    eventRegistration => eventRegistration.event
+  )
+  registrations: EventRegistrations[];
 
   // Define one-to-many relationships with the User_Department_Mapping entity
   @OneToMany(() => FeedBack, (feedback) => feedback.event)

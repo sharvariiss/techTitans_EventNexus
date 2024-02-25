@@ -3,6 +3,7 @@ import { Committees } from "./committees";
 import { Departments } from "./departments";
 import { Event } from "./event";
 import { Venue } from "./venue";
+import { Status } from "./status";
 
 @Entity(`${process.env.VENUEMANAGEMENT_TABLE}`)
 export class VenueManagement extends BaseEntity {
@@ -75,20 +76,29 @@ export class VenueManagement extends BaseEntity {
     // Create a property to access the associated VenueManagement entity
     department: Departments;
 
+    // Define one-to-many relationships with the venue management entity 
+    @OneToMany(
+        () => Status,
+        status => status.venueManagement
+    )
+    status: Status[];
+
+    @Column({type:'varchar',nullable:true})
+    final_status: string;
 
     // Define a column for storing the date when the event has started
-    @Column('date')
+    @Column('timestamp without time zone')
     start_date: Date;
 
     // Define a column for storing the date when the event has ended 
-    @Column('date')
+    @Column('timestamp without time zone')
     end_date: Date;
 
-    // Define columns for start_time and end_time of an event
-    @Column('date')
-    start_time: Date;
+    // // Define columns for start_time and end_time of an event
+    // @Column('date')
+    // start_time: Date;
 
-    @Column('date')
-    end_time: Date;
+    // @Column('date')
+    // end_time: Date;
     
 }
