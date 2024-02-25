@@ -68,10 +68,10 @@ This software uses the following open source packages:
 - [Express.js](https://www.expressjs.org/)
 
 ## PPT 
-(https://docs.google.com/presentation/d/15mmiQlUfJV5u262YTb0Op--ptZrWEueA/edit?usp=sharing&ouid=104026747975585479722&rtpof=true&sd=true)
+https://docs.google.com/presentation/d/15mmiQlUfJV5u262YTb0Op--ptZrWEueA/edit?usp=sharing&ouid=104026747975585479722&rtpof=true&sd=true
 
 ## Video
-
+https://drive.google.com/file/d/1SIDUBqc-etktZd2ULY9kkBivNlTrBUSM/view?usp=sharing
 
 
 
