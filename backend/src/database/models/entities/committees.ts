@@ -1,37 +1,35 @@
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
 import { VenueManagement} from './venueManagement'
+import {CommitteeHead} from './committeeHead'
 
-@Entity(`${process.env.VENUE_TABLE}`)
-export class Venue extends BaseEntity {
-  // Define a primary key
+@Entity(`${process.env.COMMITTEES_TABLE}`)
+export class Committees extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
 
-  // Define a name column
   @Column('varchar')
   name: string
 
   // Define a one-to-many relationship with the VenueManagement entity for multiple venues
 @OneToMany(
-    () => VenueManagement,
-    VenueManagement => VenueManagement.venue
+  () => VenueManagement,
+  VenueManagement => VenueManagement.committees
 )
 venue: VenueManagement[];
 
-  // Define columns for created_at and updated_at timestamps
-  @CreateDateColumn()
-  created_at: Date
-
-  @UpdateDateColumn()
-  updated_at: Date
+  // Commitee Head relation
+  @OneToOne(() => CommitteeHead)
+  @JoinColumn({
+    name: 'commitee_head_id',
+  })
+  commitee_head: CommitteeHead
 }
