@@ -1,96 +1,161 @@
 import React, {FC, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {KTIcon} from '../../../_metronic/helpers'
+import axios from 'axios'
 
 interface FormData {
-    collegeName: string;
-    collegeCode: string;
-    address: string;
-    email: string;
-    password: string;
-    verifyAt: string;
-    roles: string[];
-    departments: string[];
-    positions: string[]; // Add positions property
-    committees: string[];
-    venues: string[]; // Add venues property
-    eventCategories: string[]; // Add eventCategories property
-    role: string;
-    department: string;
-    position: string; // Add position property
-    committee:string;
-    venue: string; // Add venue property
-    eventCategory: string; // Add eventCategory property
-  }
-  
-  const Setup: FC = () => {
-    const [formData, setFormData] = useState<FormData>({
-      collegeName: '',
-      collegeCode: '',
-      address: '',
-      email: '',
-      password: '',
-      verifyAt: '',
-      roles: [],
-      departments: [],
-      positions: [], // Initialize positions array
-      committees: [],
-      venues: [], // Initialize venues array
-      eventCategories: [], // Initialize eventCategories array
-      role: '',
-      department: '',
-      position: '', // Initialize position string
-      committee: '',
-      venue: '', // Initialize venue string
-      eventCategory: '' // Initialize eventCategory string
-    });
-  
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
-    };
-  
-    const handleAddRole = () => {
-      const { role } = formData;
-      if (role) {
-        setFormData({ ...formData, roles: [...formData.roles, role], role: '' });
-      }
-    };
-  
-    const handleAddDepartment = () => {
-      const { department } = formData;
-      if (department) {
-        setFormData({ ...formData, departments: [...formData.departments, department], department: '' });
-      }
-    };
-  
-    const handleAddPosition = () => {
-      const { position } = formData;
-      if (position) {
-        setFormData({ ...formData, positions: [...formData.positions, position], position: '' });
-      }
-    };
+  college_name: string
+  college_code: string
+  address: string
+  email: string
+  password: string
+  verify_at: string
+  roles: string[]
+  departments: string[]
+  positions: string[] // Add positions property
+  committees: string[]
+  venues: string[] // Add venues property
+  eventCategories: string[] // Add eventCategories property
+  role: string
+  department: string
+  position: string // Add position property
+  committee: string
+  venue: string // Add venue property
+  eventCategory: string // Add eventCategory property
+}
 
-    const handleAddCommittee = () => {
-      const { committee } = formData;
-      if (committee) {
-        setFormData({ ...formData, committees: [...formData.committees, committee], committee: '' });
+const Setup: FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    college_name: '',
+    college_code: '',
+    address: '',
+    email: '',
+    password: '',
+    verify_at: '',
+    roles: [],
+    departments: [],
+    positions: [], // Initialize positions array
+    committees: [],
+    venues: [], // Initialize venues array
+    eventCategories: [], // Initialize eventCategories array
+    role: '',
+    department: '',
+    position: '', // Initialize position string
+    committee: '',
+    venue: '', // Initialize venue string
+    eventCategory: '', // Initialize eventCategory string
+  })
+
+  const [allowPermission, setAllowPermission] = useState(false)
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const {name, value} = e.target
+    setFormData({...formData, [name]: value})
+  }
+
+  const handleAddRole = () => {
+    const {role} = formData
+    if (role) {
+      setFormData({...formData, roles: [...formData.roles, role], role: ''})
+    }
+    console.log('Role:', formData.role)
+    console.log('Permission:', allowPermission ? 'Allowed' : 'Not Allowed')
+    setAllowPermission(false)
+  }
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAllowPermission(e.target.checked) // Update permission state when checkbox is changed
+  }
+
+  const handleAddDepartment = async () => {
+    const {department} = formData
+    if (department) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/create-department', {
+          name: department,
+        })
+        console.log('Department created:', response.data)
+        alert('department added')
+        // Assuming you want to update the UI or take any action upon successful department creation
+      } catch (error) {
+        console.error('Error creating department:', error)
+        // Handle error cases
       }
-    };
-  
-    const handleAddVenue = () => {
-      const { venue } = formData;
-      if (venue) {
-        setFormData({ ...formData, venues: [...formData.venues, venue], venue: '' });
+      setFormData({...formData, department: ''})
+    }
+  }
+
+  const handleAddPosition = async () => {
+    const { position } = formData;
+    if (position) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/create-position', {
+          name: position,
+        });
+        console.log('Position created:', response.data);
+        alert('Position added');
+        // Assuming you want to update the UI or take any action upon successful position creation
+      } catch (error) {
+        console.error('Error creating position:', error);
+        // Handle error cases
       }
-    };
-  
-    const handleAddEventCategory = () => {
-      const { eventCategory } = formData;
-      if (eventCategory) {
-        setFormData({ ...formData, eventCategories: [...formData.eventCategories, eventCategory], eventCategory: '' });
+      setFormData({ ...formData, position: '' });
+    }
+  };
+
+  const handleAddCommittee = async () => {
+    const { committee } = formData;
+    if (committee) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/create-committee', {
+          name: committee,
+        });
+        console.log('Committee created:', response.data);
+        alert('Committee added');
+        // Assuming you want to update the UI or take any action upon successful committee creation
+      } catch (error) {
+        console.error('Error creating committee:', error);
+        // Handle error cases
       }
-    };
+      setFormData({ ...formData, committee: '' });
+    }
+  };
+
+  const handleAddVenue = async () => {
+    const { venue } = formData;
+    if (venue) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/create-venue', {
+          name: venue,
+        });
+        console.log('Venue created:', response.data);
+        alert('Venue added');
+        // Assuming you want to update the UI or take any action upon successful venue creation
+      } catch (error) {
+        console.error('Error creating venue:', error);
+        // Handle error cases
+      }
+      setFormData({ ...formData, venue: '' });
+    }
+  };
+
+  const handleAddEventCategory = async () => {
+    const { eventCategory } = formData;
+    if (eventCategory) {
+      try {
+        const response = await axios.post('http://localhost:5000/api/create-event-category', {
+          name: eventCategory,
+        });
+        console.log('Event category created:', response.data);
+        alert('Event category added');
+        // Assuming you want to update the UI or take any action upon successful event category creation
+      } catch (error) {
+        console.error('Error creating event category:', error);
+        // Handle error cases
+      }
+      setFormData({ ...formData, eventCategory: '' });
+    }
+  };
   
 
   const navigate = useNavigate()
@@ -99,10 +164,15 @@ interface FormData {
     navigate('/institute-profile')
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    navigate('/institute-profile')
+    try {
+      const response = await axios.post('http://localhost:5000/api/create-institute', formData)
+      console.log('Form submitted:', response.data)
+      navigate('/institute-profile')
+    } catch (error) {
+      console.error('Error submitting form:', error)
+    }
   }
 
   return (
@@ -139,8 +209,8 @@ interface FormData {
                     type='text'
                     className='form-control form-control-solid'
                     placeholder='Enter college name'
-                    name='collegeName'
-                    value={formData.collegeName}
+                    name='college_name'
+                    value={formData.college_name}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -154,8 +224,8 @@ interface FormData {
                     type='text'
                     className='form-control form-control-solid'
                     placeholder='Enter college code'
-                    name='collegeCode'
-                    value={formData.collegeCode}
+                    name='college_code'
+                    value={formData.college_code}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -216,9 +286,9 @@ interface FormData {
                   <input
                     type='text'
                     className='form-control form-control-solid'
-                    placeholder='Enter verifyAt'
-                    name='verifyAt'
-                    value={formData.verifyAt}
+                    placeholder='Enter verify_at'
+                    name='verify_at'
+                    value={formData.verify_at}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -241,6 +311,18 @@ interface FormData {
                     value={formData.role}
                     onChange={handleInputChange}
                   />
+                </div>
+                <div className='form-check mb-3'>
+                  <input
+                    className='form-check-input'
+                    type='checkbox'
+                    id='permissionCheckbox'
+                    checked={allowPermission}
+                    onChange={handleCheckboxChange}
+                  />
+                  <label className='form-check-label text-gray-800' htmlFor='permissionCheckbox'>
+                    Allow to give permission
+                  </label>
                 </div>
               </div>
               <div className='col-md-8 d-flex flex-column'>
@@ -292,13 +374,6 @@ interface FormData {
                     <KTIcon iconName='plus' className='fs-2' />
                     Department
                   </button>
-                  {/* Display roles */}
-                  {formData.departments.length > 0 && (
-                    <div className='p-2 ms-9 border border-secondary border-2 rounded'>
-                      <label className='fs-5 fw-bold form-label mb-2'>Departments : </label>
-                      <span>{formData.departments.join(', ')}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -330,13 +405,6 @@ interface FormData {
                     <KTIcon iconName='plus' className='fs-2' />
                     Position
                   </button>
-                  {/* Display roles */}
-                  {formData.positions.length > 0 && (
-                    <div className='p-2 ms-9 border border-secondary border-2 rounded'>
-                      <label className='fs-5 fw-bold form-label mb-2'>Positions : </label>
-                      <span>{formData.positions.join(', ')}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -368,13 +436,6 @@ interface FormData {
                     <KTIcon iconName='plus' className='fs-2' />
                     Committee
                   </button>
-                  {/* Display roles */}
-                  {formData.committees.length > 0 && (
-                    <div className='p-2 ms-9 border border-secondary border-2 rounded'>
-                      <label className='fs-5 fw-bold form-label mb-2'>Committees : </label>
-                      <span>{formData.committees.join(', ')}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -406,13 +467,6 @@ interface FormData {
                     <KTIcon iconName='plus' className='fs-2' />
                     Venue
                   </button>
-                  {/* Display roles */}
-                  {formData.venues.length > 0 && (
-                    <div className='p-2 ms-9 border border-secondary border-2 rounded'>
-                      <label className='fs-5 fw-bold form-label mb-2'>Venues : </label>
-                      <span>{formData.venues.join(', ')}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
@@ -444,20 +498,9 @@ interface FormData {
                     <KTIcon iconName='plus' className='fs-2' />
                     Category
                   </button>
-                  {/* Display roles */}
-                  {formData.eventCategories.length > 0 && (
-                    <div className='p-2 ms-9 border border-secondary border-2 rounded'>
-                      <label className='fs-5 fw-bold form-label mb-2'>Event Categories : </label>
-                      <span>{formData.eventCategories.join(', ')}</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
-
-            
-
-            {/* Additional fields for address, email, password, and verifyAt */}
           </div>
 
           <div className='card-footer d-flex justify-content-center py-6 px-9'>

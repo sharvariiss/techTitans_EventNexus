@@ -42,7 +42,7 @@ router.get('/api/get-event',GetEvent);
 router.delete('/api/delete-event',DeleteEvent);
 
 router.post('/api/create-event-category',CreateEventCategory);
-router.get('/api/get-event',GetEventCategory);
+router.get('/api/get-event-category',GetEventCategory);
 router.delete('/api/delete-event',DeleteEventCategory);
 
 

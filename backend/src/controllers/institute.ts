@@ -69,7 +69,7 @@ export async function GetInstitute(req: Request, res: Response) {
                 .createQueryBuilder(process.env.INSTITUTE_TABLE)
                 .leftJoinAndSelect(process.env.INSTITUTE_TABLE + '.users', 'admin')
                 .where({ id: institute_id })
-                .andWhere("admin.is_admin = true")
+                // .andWhere("admin.is_admin = true")
                 .getOne();
         // Get the institute by name
         else if (college_name)
@@ -77,13 +77,13 @@ export async function GetInstitute(req: Request, res: Response) {
                 .createQueryBuilder(process.env.INSTITUTE_TABLE)
                 .leftJoinAndSelect(process.env.INSTITUTE_TABLE + '.users', 'admin')
                 .where({ college_name: college_name })
-                .andWhere("admin.is_admin = true")
+                // .andWhere("admin.is_admin = true")
                 .getOne();
         else
             institute = await connection.getRepository(Institute)
                 .createQueryBuilder(process.env.INSTITUTE_TABLE)
                 .leftJoinAndSelect(process.env.INSTITUTE_TABLE + '.users', 'admin')
-                .getOne();
+                .getMany();
 
         // Handle the case where the institute is not found
         if (!institute) {
