@@ -15,10 +15,6 @@ import { CreateFeedBack, DeleteFeedback, GetFeedback } from '../controllers/feed
 import { CreateEventRegistration, GetEventRegistration } from '../controllers/eventRegistration';
 import { CreateStatus, GetStatus } from '../controllers/status';
 import Login from '../auth/login';
-import Logout from '../auth/logout';
-import ResetPassword from '../auth/resetPassword';
-import ResetPasswordVerify from '../auth/resetPasswordVerify';
-import AuthCheck from '../auth/authCheck';
 
 
 
@@ -28,6 +24,10 @@ router.get('/',(req,res)=>{
     console.log("Hello");    
     return res.json({message:"Hello World"});
 });
+
+
+router.post('/api/login', Login);
+
 
 router.post('/api/create-Institute', CreateInstitute);
 router.get('/api/get-Institute', GetInstitute);
@@ -49,8 +49,8 @@ router.get('/api/get-event',GetEvent);
 router.delete('/api/delete-event',DeleteEvent);
 
 router.post('/api/create-event-category',CreateEventCategory);
-router.get('/api/get-event',GetEventCategory);
-router.delete('/api/delete-event',DeleteEventCategory);
+router.get('/api/get-event-category',GetEventCategory);
+router.delete('/api/delete-event-category',DeleteEventCategory);
 
 
 router.post('/api/create-position',CreatePositions);
@@ -93,19 +93,5 @@ router.get('/api/get-event-registration',GetEventRegistration);
 
 router.post('/api/create-status',CreateStatus);
 router.get('/api/get-status',GetStatus);
-
-// Login route
-router.get('/api/login', Login);
-
-// Adding authentication middleware
-// router.use(AuthCheck);
-
-// logout, reset password, reset password verify routes
-router.get('/api/logout', Logout);
-router.get('/api/resetPassword', ResetPassword);
-router.get('/api/resetPasswordVerify', ResetPasswordVerify);
-
-
-
 
 export default router;

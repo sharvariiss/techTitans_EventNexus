@@ -87,21 +87,18 @@ export class VenueManagement extends BaseEntity {
     final_status: string;
 
     // Define a column for storing the date when the event has started
-    @Column('date')
+    @Column('timestamp without time zone')
     start_date: Date;
 
     // Define a column for storing the date when the event has ended 
-    @Column('date')
+    @Column('timestamp without time zone')
     end_date: Date;
 
-    // Define columns for start_time and end_time of an event
-    @Column('date')
-    start_time: Date;
+    // // Define columns for start_time and end_time of an event
+    // @Column('date')
+    // start_time: Date;
 
-    @Column('date')
-    end_time: Date;
-
-    
-
+    // @Column('date')
+    // end_time: Date;
     
 }

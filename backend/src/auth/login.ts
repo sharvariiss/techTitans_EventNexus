@@ -2,8 +2,6 @@ import connect, { connection } from "../database/connect";
 import bcryptjs from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../database/models/entities/user";
-import { Roles } from "../database/models/entities/roles";
-
 
 // connect()
 
@@ -17,9 +15,14 @@ export default async function Login(req, res) {
     console.log(email);
 
     //check if user exists
-    const user = await connection
+    const user:any = await connection
       .getRepository(User)
-      .findOne({ where: { email: email } });
+      .createQueryBuilder(process.env.USER_TABLE)
+      .leftJoinAndSelect(process.env.USER_TABLE+".institute","institute")
+      .leftJoinAndSelect(process.env.USER_TABLE+".role","role")
+      .leftJoinAndSelect(process.env.USER_TABLE+".department","department")
+      .getOne()
+    //   .findOne({ where: { email: email } });
     if (!user) {
       return res.status(400).json({ message: "Error: User Does not exist" });
     }
@@ -35,7 +38,7 @@ export default async function Login(req, res) {
     //create Token Data
     const tokenData = {
       id: user.id,
-      user_Name: user.name,
+      user_Name: user.email,
       email: user.email,
     };
     console.log(tokenData);
@@ -44,16 +47,29 @@ export default async function Login(req, res) {
       expiresIn: "1d",
     });
 
-    
-    // return sucess response with signed cookie
+    if(user){
+        user['role_id'] = user.role.id;
+        user['role_name'] = user.role.name;
+        user['department_id'] = user.department.id;
+        user['department_name'] = user.department.name;
+        user['institute_id'] = user.institute.id;
+        user['institute_name'] = user.institute.name;
+
+        user.role = undefined;
+        user.department = undefined;
+        user.institute = undefined;
+        user.password = undefined;
+    }
+
+        // return sucess response with signed cookie
     return res
       .cookie("token", token, { httpOnly: true, signed: true })
       .status(200)
       .json({
         message: "Login successful",
         success: true,
-        token: token
-        
+        token: token,
+        user,
       });
   } catch (error: any) {
     console.log(error.message);

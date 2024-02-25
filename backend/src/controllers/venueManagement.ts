@@ -31,7 +31,7 @@ export async function CreateVenueManagement(req, res) {
       .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.event', 'event')
       .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.committees', 'committees')
       .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.department', 'department')
-      .where("((start_date <= :newEndDate) AND (end_date >= :NewStartDate))",{newEndDate: endDate,NewStartDate:startDate})
+      .where("((start_date < :newEndDate) AND (end_date > :NewStartDate))",{newEndDate: endDate,NewStartDate:startDate})
       .getOne()
 
       // console.log(venue_Management)
@@ -72,21 +72,25 @@ export async function CreateVenueManagement(req, res) {
     }
 
     //Query the Department
-    const departments = await connection
+    const department = await connection
       .getRepository(Departments)
       .createQueryBuilder(process.env.DEPARTMENT_TABLE)
       .where({id: dept_id})
       .getOne()
-    if (!departments) {
+    if (!department) {
       return res.status(400).json({message: 'Department does not Exists'})
     }
 
     // Create a new VenueManagement
     const venueManagement = VenueManagement.create({
+      committees,
+      venue,
+      department,
+      event,      
       start_date: startDate,
       end_date: endDate,
-      start_time: startTime,
-      end_time: endTime,
+      // start_time: startTime,
+      // end_time: endTime,
     })
     // Save the Venue in the database
     const savedVenueManagement = await venueManagement.save()

@@ -29,22 +29,6 @@ export class Status extends BaseEntity {
     // Create a property to access the associated institute entity
     institute: Institute;
 
-    // Define a many-to-one relationship with the status entity
-    @ManyToOne(
-        () => VenueManagement,
-        venueManagement => venueManagement.status,
-        {
-            onDelete: "CASCADE"
-        }
-    )
-    @JoinColumn(
-        {
-            name: 'venue_management_id',
-        }
-    )
-    // Create a property to access the associated venue management entity
-    venueManagement: VenueManagement;
-
     // Define a many-to-one relationship with the Role entity
     @ManyToOne(
         () => Roles,
@@ -60,6 +44,22 @@ export class Status extends BaseEntity {
     )
     // Create a property to access the associated Role entity
     role: Roles;
+
+    // Define a many-to-one relationship with the status entity
+    @ManyToOne(
+        () => VenueManagement,
+        venueManagement => venueManagement.status,
+        {
+            onDelete: "CASCADE"
+        }
+    )
+    @JoinColumn(
+        {
+            name: 'venue_management_id',
+        }
+    )
+    // Create a property to access the associated venue management entity
+    venueManagement: VenueManagement;
 
 
     // Define columns for created_at and updated_at timestamps

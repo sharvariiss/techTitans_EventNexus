@@ -18,7 +18,10 @@ export async function CreateStatus(req: Request, res: Response) {
       await connection
         .getRepository(Status)
         .createQueryBuilder(process.env.STATUS_TABLE)
-        .where({ status })
+        .leftJoinAndSelect(process.env.STATUS_TABLE + '.institute', 'institute')
+        .leftJoinAndSelect(process.env.STATUS_TABLE + '.venueManagement', 'venueManagement')
+        .leftJoinAndSelect(process.env.STATUS_TABLE + '.role', 'role')
+        .where('venueManagement.id= :venue_management_id AND role.id = :role_id AND institute.id= :institute_id', { venue_management_id, role_id , institute_id})
         .getOne()
     )
       return res.status(400).json({ message: 'Status Already Exists' })
@@ -44,19 +47,19 @@ export async function CreateStatus(req: Request, res: Response) {
       status,
       institute,
       venueManagement,
+      role
     }).save()
 
     const permittedRoles = await connection
       .getRepository(Roles)
       .find({ where: { is_permission_required: true } })
-
     const venue = await connection
       .getRepository(Status)
       .createQueryBuilder(process.env.STATUS_TABLE)
       .leftJoinAndSelect(process.env.STATUS_TABLE + '.institute', 'institute')
       .leftJoinAndSelect(process.env.STATUS_TABLE + '.venueManagement', 'venueManagement')
       .leftJoinAndSelect(process.env.STATUS_TABLE + '.role', 'role')
-      .where('venueManagement.id = venue_management_id', { vanue_management_id: venue_management_id })
+      .where('venueManagement.id = :vanue_management_id', { vanue_management_id: venue_management_id })
       .getMany();
 
     // const filteredVenue: Status[] = venue.filter((statusRecord) => {
@@ -66,15 +69,11 @@ export async function CreateStatus(req: Request, res: Response) {
     //     roleIds.includes(statusRecord.role.id)
     //   )
     // })
-
-    if((permittedRoles.length !== Status.length)) return res.status(200).json({ message: 'Status created' })
+    if((permittedRoles.length !== venue.length)) return res.status(200).json({ message: 'Status created' })
     
-    let check = false;
+    let check = true;
     venue.forEach((statusRecord) => {
-      if (statusRecord.status === true)
-        check = check && true
-      else
-        check = false && check
+      check = check && statusRecord.status
     })
     if(check)
       await VenueManagement.update({id:venue_management_id},{final_status:'approved'})

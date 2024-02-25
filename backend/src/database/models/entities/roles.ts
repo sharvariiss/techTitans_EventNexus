@@ -15,8 +15,8 @@ export class Roles extends BaseEntity {
     name: string;
 
     // Define a column for storing the permission granting as text
-  @Column('boolean')
-  is_permission_required: boolean;
+    @Column('boolean')
+    is_permission_required: boolean;
 
     // Define one-to-many relationships with the User entity 
     @OneToMany(
@@ -25,19 +25,19 @@ export class Roles extends BaseEntity {
     )
     users: User[];
 
-    // Define one-to-many relationships with the User_Department_Mapping entity 
-    @OneToMany(
-        () => Roles_Department_Mapping,
-        user => user.role
-    )
-    role_department_mapping: Roles_Department_Mapping[];
-
     // Define one-to-many relationships with the status entity 
     @OneToMany(
         () => Status,
         status => status.role
     )
     status: Status[];
+
+    // Define one-to-many relationships with the User_Department_Mapping entity 
+    @OneToMany(
+        () => Roles_Department_Mapping,
+        user => user.role
+    )
+    role_department_mapping: Roles_Department_Mapping[];
 
     // Define a many-to-one relationship with the institute entity
     @ManyToOne(
