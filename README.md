@@ -14,9 +14,9 @@
   <a href="#credits">Credits</a> •
 </p>
 
-![screenshot]
-<img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexux_gif.gif" width="600">
-
+<center>
+<img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexux_gif.gif" width="1000">
+</center>
 
 ## Key Features
 
