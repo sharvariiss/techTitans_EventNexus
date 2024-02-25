@@ -1,20 +1,11 @@
 import { Router } from 'express';
 import { CreateInstitute, DeleteInstitute, GetInstitute, UpdateInstitute } from '../controllers/institute';
-import { CreateRoles, DeleteRoles, GetRoles } from '../controllers/roles';
-import { CreateDepartments, DeleteDepartments, GetDepartments } from '../controllers/departments';
-import { CreateEvent, DeleteEvent, GetEvent } from '../controllers/event';
-import { CreatePositions, DeletePositions, GetPositions } from '../controllers/positions';
-import { CreateVenue, DeleteVenue, GetVenue } from '../controllers/venue';
-import { CreateUser, DeleteUser, GetUser, UpdateUser } from '../controllers/user';
-import { CreateRolesDepartmentMapping, DeleteRolesDepartmentMapping, GetRolesDepartmentMapping } from '../controllers/role_department';
-import { CreateVenueManagement, DeleteVenueManagement, GetVenueManagement } from '../controllers/venueManagement';
-import { CreateCommitteeHead, GetCommitteeHead, UpdateCommitteeHead } from '../controllers/committee_head';
-import { CreateCommittee, GetCommittee } from '../controllers/committee';
-import { CreateEventCategory, DeleteEventCategory, GetEventCategory } from '../controllers/event_category';
-import { CreateFeedBack, DeleteFeedback, GetFeedback } from '../controllers/feedback';
-import { CreateEventRegistration, GetEventRegistration } from '../controllers/eventRegistration';
-import { CreateStatus, GetStatus } from '../controllers/status';
-import Login from '../auth/login';
+import { Create_Roles, Delete_Roles, Get_Roles } from '../controllers/roles';
+import { Create_Departments, Delete_Departments, Get_Departments } from '../controllers/departments';
+import { Create_Event_Category, Delete_Event_Category, Get_Event_Category } from '../controllers/event_category';
+import { Create_Positions, Delete_Positions, Get_Positions } from '../controllers/positions';
+import { Create_Venue, Delete_Venue, Get_Venue } from '../controllers/venue';
+//import CreateInstitute, { GetInstitute } from 'src/controllers/institute';
 
 
 
@@ -25,73 +16,35 @@ router.get('/',(req,res)=>{
     return res.json({message:"Hello World"});
 });
 
-
-router.post('/api/login', Login);
-
-
 router.post('/api/create-Institute', CreateInstitute);
 router.get('/api/get-Institute', GetInstitute);
 router.put('/api/update-Institute', UpdateInstitute);
 router.delete('/api/delete-Institute', DeleteInstitute);
 
-router.post('/api/create-roles',CreateRoles);
-router.get('/api/get-roles',GetRoles);
-router.delete('/api/delete-roles',DeleteRoles);
+router.post('/api/create-roles',Create_Roles);
+router.get('/api/get-roles',Get_Roles);
+router.delete('/api/delete-roles',Delete_Roles);
 
 
-router.post('/api/create-department',CreateDepartments);
-router.get('/api/get-department',GetDepartments);
-router.delete('/api/delete-department',DeleteDepartments);
+router.post('/api/create-department',Create_Departments);
+router.get('/api/get-department',Get_Departments);
+router.delete('/api/delete-department',Delete_Departments);
 
 
-router.post('/api/create-event',CreateEvent);
-router.get('/api/get-event',GetEvent);
-router.delete('/api/delete-event',DeleteEvent);
-
-router.post('/api/create-event-category',CreateEventCategory);
-router.get('/api/get-event-category',GetEventCategory);
-router.delete('/api/delete-event-category',DeleteEventCategory);
+router.post('/api/create-event-category',Create_Event_Category);
+router.get('/api/get-event-category',Get_Event_Category);
+router.delete('/api/delete-event-category',Delete_Event_Category);
 
 
-router.post('/api/create-position',CreatePositions);
-router.get('/api/get-position',GetPositions);
-router.delete('/api/delete-position',DeletePositions);
+router.post('/api/create-position',Create_Positions);
+router.get('/api/get-position',Get_Positions);
+router.delete('/api/delete-position',Delete_Positions);
 
 
-router.post('/api/create-venue',CreateVenue);
-router.get('/api/get-venue',GetVenue);
-router.delete('/api/delete-venue',DeleteVenue);
-
-router.post('/api/create-committee', CreateCommittee);
-router.get("/api/get-committee", GetCommittee);
-
-router.post('/api/create-committee_head', CreateCommitteeHead);
-router.get('/api/get-committee_head', GetCommitteeHead);
-router.put('/api/update-committee_head', UpdateCommitteeHead);
-
-router.post('/api/create-user', CreateUser);
-router.get('/api/get-user', GetUser);
-router.put('/api/update-user', UpdateUser);
-router.delete('/api/delete-user', DeleteUser);
+router.post('/api/create-venue',Create_Venue);
+router.get('/api/get-venue',Get_Venue);
+router.delete('/api/delete-venue',Delete_Venue);
 
 
-router.post('/api/create-role-department-mapping', CreateRolesDepartmentMapping);
-router.get('/api/get-role-department-mapping', GetRolesDepartmentMapping);
-router.delete('/api/delete-role-department-mapping', DeleteRolesDepartmentMapping);
-
-
-router.post('/api/create-venueManagement',CreateVenueManagement);
-router.get('/api/get-venueManagement',GetVenueManagement);
-router.delete('/api/delete-venueManagement',DeleteVenueManagement);
-
-router.post('/api/create-feedback',CreateFeedBack);
-router.get('/api/get-feedback',GetFeedback);
-router.delete('/api/delete-feedback',DeleteFeedback);
-
-router.post('/api/create-event-registration',CreateEventRegistration);
-router.get('/api/get-event-registration',GetEventRegistration);
-
-router.post('/api/create-status',CreateStatus);
-router.get('/api/get-status',GetStatus);
 
 export default router;

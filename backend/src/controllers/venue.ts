@@ -3,73 +3,44 @@ import { connection } from "../database/connect";
 import { Venue } from "../database/models/entities/venue";
 
 
-export async function CreateVenue(req: Request, res: Response) {
-    try {
-        // Get required data from the request body
-        const { name } = req.body;
+export async function Create_Venue(req: Request, res: Response) {
+    const { name } = req.body;
 
-        if (!name) return res.status(400).json({ message: "Please provide with a name for the Venue you are trying to create" })
-        
-        // Check if the venue already exists
-        if (await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).where({ name }).getOne())
-            return res.status(400).json({ message: "Venue Already Exists" })
+    if (!name) return res.status(400).json({ message: "Please provide with a name for the Venue you are Trying to Create" })
 
-        await Venue.create({
-            name
-        }).save()
+    if (await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).where({ name }).getOne())
+        return res.status(400).json({ message: "Departments Already Exists" })
 
-        // Response
-        return res.status(200).json({ message: "Venue created" })
+    await Venue.create({
+        name
+    }).save()
 
-    } catch (error) {
-        // Log and return an error response for any unexpected errors
-        console.log(error.message);
-        return res.status(500).json({ error: error.message });
-    }
+    return res.status(200).json({ message: "Venue created" })
 }
 
-export async function GetVenue(req: Request, res: Response) {
-    try {
-        // Get required data from the request body
-        const { id } = req.query;
+export async function Get_Venue(req: Request, res: Response) {
+    const { id } = req.query;
 
-        let venue: Venue | Venue[];
+    let venue: Venue | Venue[];
 
-        if (id)
-            venue = await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).where({ id }).getOne();
-        else
-            venue = await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).getMany()
+    if (id)
+        venue = await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).where({ id }).getOne();
+    else
+        venue = await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).getMany()
 
-        if (!venue) return res.status(404).json({ message: "No Venue Found" })
+    if (!venue) return res.status(404).json({ message: "No Venue Found" })
 
-        // Response
-        return res.status(200).json({ message: "Venue Fetched", venue })
-
-    } catch (error) {
-        // Log and return an error response for any unexpected errors
-        console.log(error.message);
-        return res.status(500).json({ error: error.message });
-    }
+    return res.status(200).json({ message: "Venue Fetched", venue })
 }
 
-export async function DeleteVenue(req: Request, res: Response) {
-    try {
-        // Get required data from the request body
-        const { id } = req.query;
+export async function Delete_Venue(req: Request, res: Response) {
+    const { id } = req.query;
 
-        const response = await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).delete().where({ id }).execute();
+    const venue = await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).where({ id }).getOne();
 
-        // Check if the institute was not found for deletion
-        if (response.affected === 0)
-            return res.status(404).json({ message: "Venue not found" });
+    if (!venue) return res.status(404).json({ message: "No Venue Found" })
 
+    await connection.getRepository(Venue).createQueryBuilder(process.env.VENUE_TABLE).delete().where({ id }).execute();
 
-        // Response
-        return res.status(200).json({ message: "Venue Deleted" })
-
-    } catch (error) {
-        // Log and return an error response for any unexpected errors
-        console.log(error.message);
-        return res.status(500).json({ error: error.message });
-    }
+    return res.status(200).json({ message: "Venue Deleted" })
 }

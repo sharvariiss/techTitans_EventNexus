@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-type CommitteeModalProps = {
+type RentCarModalProps = {
   show: boolean;
   onClose: () => void;
 };
 
-const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
+const RentCarForm: React.FC<RentCarModalProps> = ({ show, onClose }) => {
   const [formData, setFormData] = useState({
     carModel: '',
     driverName: '',
@@ -39,7 +39,7 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
             <div className='modal-dialog modal-dialog-centered mw-750px'>
               <div className='modal-content'>
                 <div className='modal-header'>
-                  <h2 className='fw-bold'>Committee</h2>
+                  <h2 className='fw-bold'>Rent Car</h2>
                   <div
                     className='btn btn-icon btn-sm btn-active-icon-primary'
                     data-kt-roles-modal-action='close'
@@ -57,33 +57,34 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
                       <div className='col-md-6'>
                         <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
-                            <span className='required'>Name</span>
+                            <span className='required'>Car Model</span>
                           </label>
-                          <input
-                            type='text'
-                            className='form-control form-control-solid'
-                            placeholder='Enter your name'
+                          <select
+                            className='form-select form-select-solid'
                             name='carModel'
                             value={formData.carModel}
                             onChange={handleInputChange}
-                          />
-
-
+                          >
+                            <option value=''>Select Car Model</option>
+                            <option value='Honda city'>Honda City</option>
+                            <option value='swift desire'>Swift Desire</option>
+                            {/* Add options for car models here */}
+                          </select>
                         </div>
                         <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
-                            <span className='required'>Description</span>
+                            <span className='required'>Start Location</span>
                           </label>
                           <input
-                            type='text'
+                          type='text'
                             className='form-control form-control-solid'
-                            placeholder='escription of your committee'
+                            placeholder='Enter start location'
                             name='startLocation'
                             value={formData.startLocation}
                             onChange={handleInputChange}
                           />
                         </div>
-                        {/* <div className='d-flex flex-column mb-10'>
+                        <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
                             <span className='required'>Start Date</span>
                           </label>
@@ -94,38 +95,30 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
                             value={formData.startDate}
                             onChange={handleInputChange}
                           />
-                        </div> */}
+                        </div>
                         <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
-                            <span className='required'>Department</span>
+                            <span className='required'>Total Amount</span>
                           </label>
-                          <select
-
-                            className='form-select form-select-solid'
-
+                          <input
+                          type='number'
+                            className='form-control form-control-solid'
+                            placeholder='Enter total amount'
                             name='totalAmount'
                             value={formData.totalAmount}
                             onChange={handleInputChange}
-                          >
-                            <option value=''>Select the department</option>
-                            <option value='Honda city'>Computer Science</option>
-                            <option value='swift desire'>Information Technology</option>
-                            <option value='Honda city'>Mechanical Engineering</option>
-                            <option value='Honda city'>Civil Engineering</option>
-                            <option value='Honda city'>Internet of Things</option>
-
-                          </select>
+                          />
                         </div>
                       </div>
                       <div className='col-md-6'>
                         <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
-                            <span className='required'>Email I'D</span>
+                            <span className='required'>Driver Name</span>
                           </label>
                           <input
-                            type='text'
+                          type='text'
                             className='form-control form-control-solid'
-                            placeholder='Enter email Id'
+                            placeholder='Enter driver name'
                             name='driverName'
                             value={formData.driverName}
                             onChange={handleInputChange}
@@ -133,19 +126,19 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
                         </div>
                         <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
-                            <span className='required'>Contact Info</span>
+                            <span className='required'>End Location</span>
                           </label>
                           <input
-                            type='text'
-
+                          type='text'
+                          
                             className='form-control form-control-solid'
-                            placeholder='Enter contact information'
+                            placeholder='Enter end location'
                             name='endLocation'
                             value={formData.endLocation}
                             onChange={handleInputChange}
                           />
                         </div>
-                        {/* <div className='d-flex flex-column mb-10'>
+                        <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
                             <span className='required'>End Date</span>
                           </label>
@@ -156,16 +149,16 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
                             value={formData.endDate}
                             onChange={handleInputChange}
                           />
-                        </div> */}
+                        </div>
                         <div className='d-flex flex-column mb-10'>
                           <label className='fs-5 fw-bold form-label mb-2'>
-                            <span className='required'>Goals & Objective</span>
+                            <span className='required'>Paid</span>
                           </label>
                           <input
-                            type='text'
+                          type='number'
 
                             className='form-control form-control-solid'
-                            placeholder='Enter goals and objective'
+                            placeholder='Enter paid amount'
                             name='paid'
                             value={formData.paid}
                             onChange={handleInputChange}
@@ -205,4 +198,4 @@ const CommitteeForm: React.FC<CommitteeModalProps> = ({ show, onClose }) => {
   );
 };
 
-export { CommitteeForm };
+export { RentCarForm };
