@@ -42,6 +42,17 @@ const SidebarMenuMain = () => {
         to='/advisory-board'
         icon='element-11' 
         title='Advisory Board'
+        />
+        <SidebarMenuItem
+        to='/venuemanagement'
+        icon='element-11' 
+        title='Venue Management'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/forstudents'
+        icon='element-11' 
+        title='Event Promotion & Participation'
         fontIcon='bi-app-indicator'
       />
       
