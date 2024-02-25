@@ -9,6 +9,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import { RentCar } from '../modules/rent_car/RentCar'
 import Setup from '../modules/institute_setup/Setup'
 import { Committee } from '../modules/committees/Committee'
+import { CommitteeEvent } from '../modules/event_management/committee/CommitteeEvent'
 
 
 const PrivateRoutes = () => {
@@ -22,6 +23,7 @@ const PrivateRoutes = () => {
         <Route path='rent-car' element={<RentCar />} />
         <Route path='institute-setup' element={<Setup />} />
         <Route path='committee' element={<Committee />} />
+        <Route path='create-event' element={<CommitteeEvent />} />
         </Route>
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />

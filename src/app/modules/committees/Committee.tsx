@@ -48,7 +48,7 @@ const Committee = () => {
       </div>
       <div className="row">
         {committees.map((committee, index) => (
-          <div key={index} className="col-md-3 mb-3">
+          <div key={index} className="col-md-3 mb-7">
             <CommitteeCard {...committee} />
           </div>
         ))}

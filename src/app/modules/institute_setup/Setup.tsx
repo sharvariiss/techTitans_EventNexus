@@ -215,7 +215,7 @@ interface FormData {
 
             <hr />
 
-            <div className='row mb-5'>
+            <div className='row mb-5 mt-10'>
               <div className='col-md-4'>
                 <div className='d-flex flex-column mb-10'>
                   <label className='fs-5 fw-bold form-label mb-2'>

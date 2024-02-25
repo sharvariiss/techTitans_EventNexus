@@ -26,14 +26,14 @@ const CommitteeCard: React.FC<CommitteeCardProps> = ({ name, department, contact
       }}
     >
         <div className="card-body">
-        <h5 className="card-title">Name: {name}</h5>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-        <KTIcon iconName='yii' className='fs-2' /> {/* Department icon */}
-          <p className="card-text">Department: {department}</p>
+        <h5 className="card-title mb-5">{name}</h5>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom:'5px'}}>
+        <KTIcon iconName='yii' className='fs-2 text-primary me-2' /> {/* Department icon */}
+          <p className="card-text">{department}</p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-        <KTIcon iconName='phone' className='fs-2' /> {/* Contact icon */}
-          <p className="card-text">Contact: {contactInfo}</p>
+        <KTIcon iconName='phone' className='fs-2 text-primary me-2' /> {/* Contact icon */}
+          <p className="card-text">{contactInfo}</p>
           
         </div>
       </div>
