@@ -1,10 +1,6 @@
 import React, { useState, ChangeEvent } from 'react'
 import { KTIcon } from '../../../_metronic/helpers'
 import { Link } from 'react-router-dom'
-import {Live} from './Live';
-import { Upcoming } from './Upcoming';
-import { Over } from './Over';
-
 
 interface User {
   SrNo: string
@@ -24,10 +20,10 @@ interface User {
 const usersData: User[] = [
   {
     SrNo: '1',
-    Evename: 'Auditorium',
+    Evename: 'Auditorium01',
     EventName: 'abcdefg...',
     category: 'Cultural',
-    Department: 'Mechanical',
+    Department: 'Computer Science',
     date: '02/03/24',
     time: '06:00 PM',
     action: 'Register',
@@ -40,7 +36,7 @@ const usersData: User[] = [
   // Add more users as needed
 ]
 
-const ForStudents: React.FC = () => {
+const Live: React.FC = () => {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([])
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -54,14 +50,14 @@ const ForStudents: React.FC = () => {
   )
 
   const handleUserSelection = (userSrNo: string) => {
-    const isSelected = selectedUsers.includes(userSrNo);
+    const isSelected = selectedUsers.includes(userSrNo)
 
     if (isSelected) {
-      setSelectedUsers(selectedUsers.filter((id) => id !== userSrNo));
+      setSelectedUsers(selectedUsers.filter((id) => id !== userSrNo))
     } else {
-      setSelectedUsers([...selectedUsers, userSrNo]);
+      setSelectedUsers([...selectedUsers, userSrNo])
     }
-  };
+  }
 
   const handleRegisterClick = () => {
     // Show the registration confirmation popup
@@ -69,19 +65,21 @@ const ForStudents: React.FC = () => {
   };
 
   const handleConfirmRegistration = () => {
-    
+    // Handle the registration confirmation logic here
+    // For example, you can navigate to a registration page
     console.log('User confirmed registration');
-    
+    // Close the confirmation popup
     setShowConfirmation(false);
   };
 
   const handleCancelRegistration = () => {
-    
+    // Close the confirmation popup without registering
     setShowConfirmation(false);
   };
 
   const handleFeedbackChange = (event: ChangeEvent<HTMLInputElement>, userSrNo: string) => {
-    
+    // Handle feedback change and update the user's feedback in the state or elsewhere
+    // For example, you can maintain feedback in the component's state
     const updatedUsersData = usersData.map((user) =>
       user.SrNo === userSrNo ? { ...user, feedback: event.target.value } : user
     );
@@ -91,44 +89,6 @@ const ForStudents: React.FC = () => {
 
   return (
     <>
-    {/* Tab section */}
-    <ul className='nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder mb-5'>
-        <li className='nav-item'>
-          <a className='nav-link active' data-bs-toggle='tab' href='#kt_table_widget_4_tab_1'>
-            Over
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link' data-bs-toggle='tab' href='#kt_table_widget_4_tab_2'>
-            Live
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link' data-bs-toggle='tab' href='#kt_table_widget_4_tab_3'>
-            Upcoming
-          </a>
-        </li>
-      </ul>
-      {/* Tab content */}
-      <div className='tab-content'>
-        {/* Over Tab */}
-        <div className='tab-pane fade show active' id='kt_table_widget_4_tab_1' role='tabpanel'>
-          {/* Your content for Over tab goes here */}
-          <Over/>
-        </div>
-
-        {/* Live Tab */}
-        <div className='tab-pane fade' id='kt_table_widget_4_tab_2' role='tabpanel'>
-          {/* Render the Live component here */}
-          <Live />
-        </div>
-
-        {/* Upcoming Tab */}
-        <div className='tab-pane fade' id='kt_table_widget_4_tab_3' role='tabpanel'>
-          {/* Your content for Upcoming tab goes here */}
-          <Upcoming />
-        </div>
-      </div>
       <div className='flex-lg-row-fluid'>
         <div className='card card-flush mb-6 mb-xl-9'>
           <div className='card-header pt-5'>
@@ -146,7 +106,7 @@ const ForStudents: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-           
+            
           </div>
           <div className='card-body pt-0'>
             <table
@@ -191,7 +151,13 @@ const ForStudents: React.FC = () => {
                     <tr key={user.SrNo}>
                       <td>
                         <div className='form-check form-check-sm form-check-custom form-check-solid'>
-                         
+                          {/* <input
+                            className='form-check-input'
+                            type='checkbox'
+                            value={user.SrNo}
+                            checked={selectedUsers.includes(user.SrNo)}
+                            onChange={() => handleUserSelection(user.SrNo)}
+                          /> */}
                         </div>
                       </td>
                       <td>{user.SrNo}</td>
@@ -224,13 +190,10 @@ const ForStudents: React.FC = () => {
                           }}
                         />
                       </td>
-                      {/* <td>{user.feedback}</td> */}
-                      {/* <td>{user.totalAmount}</td>
-                      <td>{user.paid}</td>
-                      <td>{user.remaining}</td> */}
+                      
 
                       <td className='text-end'>
-                       
+                        
                       </td>
                     </tr>
                   ))
@@ -283,4 +246,4 @@ const ForStudents: React.FC = () => {
   )
 }
 
-export { ForStudents }
+export { Live }
