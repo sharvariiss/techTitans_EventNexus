@@ -9,6 +9,8 @@ import {WithChildren} from '../../_metronic/helpers'
 import { RentCar } from '../modules/rent_car/RentCar'
 import Setup from '../modules/institute_setup/Setup'
 import { Committee } from '../modules/committees/Committee'
+import { VenueManagement } from '../modules/VenueM/VenueManagement'
+import { ForStudents } from '../modules/VenueM/ForStudents'
 
 
 const PrivateRoutes = () => {
@@ -22,6 +24,8 @@ const PrivateRoutes = () => {
         <Route path='rent-car' element={<RentCar />} />
         <Route path='institute-setup' element={<Setup />} />
         <Route path='committee' element={<Committee />} />
+        <Route path='venuemanagement' element={<VenueManagement />} />
+        <Route path='forstudents' element={<ForStudents />} />
         </Route>
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
