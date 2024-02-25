@@ -33,6 +33,17 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       />
       <SidebarMenuItem
+        to='/create-event'
+        icon='element-11' 
+        title='Create Event'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/advisory-board'
+        icon='element-11' 
+        title='Advisory Board'
+        />
+        <SidebarMenuItem
         to='/venuemanagement'
         icon='element-11' 
         title='Venue Management'
