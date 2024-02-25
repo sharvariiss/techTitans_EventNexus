@@ -15,7 +15,7 @@
 </p>
 
 <center>
-<img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexux_gif.gif" width="1000">
+<img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexux_gif.gif" width="500">
 </center>
 
 ## Key Features
