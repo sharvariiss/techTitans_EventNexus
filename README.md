@@ -2,17 +2,17 @@
 
 
 
-<h1 align="center">
+
   <br>
   <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="400">
   
-</h1>
 
-<p align="center">
+
+
   <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#credits">Credits</a> •
-</p>
+
 
 <center>
 <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexux_gif.gif" width="500">
