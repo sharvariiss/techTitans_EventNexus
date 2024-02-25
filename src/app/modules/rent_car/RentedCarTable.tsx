@@ -3,63 +3,63 @@ import {KTIcon} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 
 interface User {
-  SrNo: string
-  VenueName: string
-  EventName: string
-  Committee: string
-  Department: string
-  date: string
-  time: string
-  status: string
-  // totalAmount: string
-  // paid: string
-  // remaining: string
+  id: string
+  carModel: string
+  carNumber: string
+  driverDetail: string
+  startLocation: string
+  endLocation: string
+  startDate: string
+  endDate: string
+  totalAmount: string
+  paid: string
+  remaining: string
 }
 
 const usersData: User[] = [
   {
-    SrNo: '1',
-    VenueName: 'Auditorium',
-    EventName: 'Tech Event',
-    Committee: 'Student',
-    Department: 'Computer Science',
-    date: '02/03/24',
-    time: '06:00 PM',
-    status: 'Booked',
-    // totalAmount: '20,000',
-    // paid: '16,000',
-    // remaining: '4,000',
+    id: '1',
+    carModel: 'Honda City',
+    carNumber: 'MH 12 AB 1234',
+    driverDetail: 'Suresh',
+    startLocation: 'Pune',
+    endLocation: 'Mumbai',
+    startDate: '12/2/24',
+    endDate: '14/2/24',
+    totalAmount: '20,000',
+    paid: '16,000',
+    remaining: '4,000',
   },
 
   // Add more users as needed
 ]
 
-const VenueManagement: React.FC = () => {
+const RentedCarTable: React.FC = () => {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([])
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string>('')
 
   const filteredUsers = usersData.filter(
     (user) =>
-      user.SrNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.VenueName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.EventName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      user.Committee.toLowerCase().includes(searchTerm.toLowerCase())
+      user.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.carModel.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.carNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.driverDetail.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const handleUserSelection = (userSrNo: string) => {
-    const isSelected = selectedUsers.includes(userSrNo)
+  const handleUserSelection = (userId: string) => {
+    const isSelected = selectedUsers.includes(userId)
 
     if (isSelected) {
-      setSelectedUsers(selectedUsers.filter((id) => id !== userSrNo))
+      setSelectedUsers(selectedUsers.filter((id) => id !== userId))
     } else {
-      setSelectedUsers([...selectedUsers, userSrNo])
+      setSelectedUsers([...selectedUsers, userId])
     }
   }
 
   const handleSelectAll = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const allUserIds = usersData.map((user) => user.SrNo)
+      const allUserIds = usersData.map((user) => user.id)
       setSelectedUsers(allUserIds)
     } else {
       setSelectedUsers([])
@@ -73,11 +73,11 @@ const VenueManagement: React.FC = () => {
 
   const handleConfirmDelete = () => {
     // Log the deleted users to the console
-    const deletedUsers = usersData.filter((user) => selectedUsers.includes(user.SrNo))
+    const deletedUsers = usersData.filter((user) => selectedUsers.includes(user.id))
     console.log('Deleted Users:', deletedUsers)
 
     // Update usersData by removing selected users
-    const updatedUsersData = usersData.filter((user) => !selectedUsers.includes(user.SrNo))
+    const updatedUsersData = usersData.filter((user) => !selectedUsers.includes(user.id))
 
     // Update the state, clear selection, and hide confirmation dialog
     setSelectedUsers([])
@@ -117,7 +117,7 @@ const VenueManagement: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            {/* <div className='card-toolbar'>
+            <div className='card-toolbar'>
               <div
                 className='d-flex align-items-center position-relative my-1'
                 data-kt-view-roles-table-toolbar='base'
@@ -176,7 +176,7 @@ const VenueManagement: React.FC = () => {
                   </>
                 )}
               </div>
-            </div> */}
+            </div>
           </div>
           <div className='card-body pt-0'>
             <table
@@ -187,26 +187,26 @@ const VenueManagement: React.FC = () => {
                 <tr className='text-start fw-bold fs-7 text-uppercase gs-0'>
                   <th className='w-10px pe-2'>
                     <div className='form-check form-check-sm form-check-custom form-check-solid me-3'>
-                      {/* <input
+                      <input
                         className='form-check-input'
                         type='checkbox'
                         onChange={handleSelectAll}
                         checked={selectedUsers.length === usersData.length}
-                      /> */}
+                      />
                     </div>
                   </th>
-                  <th className='min-w-50px'>Sr.No.</th>
-                  <th className='min-w-50px'>Venue Name</th>
-                  <th className='min-w-50px'>Event Name</th>
-                  <th className='min-w-50px'>Committee</th>
-                  <th className='min-w-50px'>Department</th>
-                  <th className='min-w-50px'>Date</th>
-                  <th className='min-w-50px'>Time</th>
-                  <th className='min-w-50px'>Status</th>
-                  {/* <th className='min-w-50px'>Total</th>
+                  <th className='min-w-50px'>ID</th>
+                  <th className='min-w-50px'>Car Model</th>
+                  <th className='min-w-50px'>Car No.</th>
+                  <th className='min-w-50px'>Driver Details</th>
+                  <th className='min-w-50px'>Start Location</th>
+                  <th className='min-w-50px'>End Location</th>
+                  <th className='min-w-50px'>Start Date</th>
+                  <th className='min-w-50px'>End Date</th>
+                  <th className='min-w-50px'>Total</th>
                   <th className='min-w-50px'>Paid</th>
                   <th className='min-w-50px'>Remaining</th>
-                  <th className='text-end px-3 min-w-50px'>Actions</th> */}
+                  <th className='text-end px-3 min-w-50px'>Actions</th>
                 </tr>
               </thead>
               <tbody className='fw-semibold text-gray-600'>
@@ -218,32 +218,32 @@ const VenueManagement: React.FC = () => {
                   </tr>
                 ) : (
                   filteredUsers.map((user) => (
-                    <tr key={user.SrNo}>
+                    <tr key={user.id}>
                       <td>
                         <div className='form-check form-check-sm form-check-custom form-check-solid'>
-                          {/* <input
+                          <input
                             className='form-check-input'
                             type='checkbox'
-                            value={user.SrNo}
-                            checked={selectedUsers.includes(user.SrNo)}
-                            onChange={() => handleUserSelection(user.SrNo)}
-                          /> */}
+                            value={user.id}
+                            checked={selectedUsers.includes(user.id)}
+                            onChange={() => handleUserSelection(user.id)}
+                          />
                         </div>
                       </td>
-                      <td>{user.SrNo}</td>
-                      <td>{user.VenueName}</td>
-                      <td>{user.EventName}</td>
-                      <td>{user.Committee}</td>
-                      <td>{user.Department}</td>
-                      <td>{user.date}</td>
-                      <td>{user.time}</td>
-                      <td>{user.status}</td>
-                      {/* <td>{user.totalAmount}</td>
+                      <td>{user.id}</td>
+                      <td>{user.carModel}</td>
+                      <td>{user.carNumber}</td>
+                      <td>{user.driverDetail}</td>
+                      <td>{user.startLocation}</td>
+                      <td>{user.endLocation}</td>
+                      <td>{user.startDate}</td>
+                      <td>{user.endDate}</td>
+                      <td>{user.totalAmount}</td>
                       <td>{user.paid}</td>
-                      <td>{user.remaining}</td> */}
+                      <td>{user.remaining}</td>
 
                       <td className='text-end'>
-                        {/* <Link
+                        <Link
                           to='/view-profile/overview'
                           className='btn btn-icon btn-active-light-primary w-30px h-30px me-3'
                           data-bs-toggle='tooltip'
@@ -251,17 +251,17 @@ const VenueManagement: React.FC = () => {
                           title='View'
                         >
                           <KTIcon iconName='eye' className='fs-3' />
-                        </Link> */}
-                        {/* <button
+                        </Link>
+                        <button
                           className='btn btn-icon btn-active-light-primary w-30px h-30px'
                           data-kt-permissions-table-filter='delete_row'
-                          onClick={() => handleDeleteRow(user.SrNo)}
+                          onClick={() => handleDeleteRow(user.id)}
                           data-bs-toggle='tooltip'
                           data-bs-placement='top'
                           title='Delete'
                         >
                           <KTIcon iconName='trash' className='fs-3' />
-                        </button> */}
+                        </button>
                       </td>
                     </tr>
                   ))
@@ -275,4 +275,4 @@ const VenueManagement: React.FC = () => {
   )
 }
 
-export {VenueManagement}
+export {RentedCarTable}

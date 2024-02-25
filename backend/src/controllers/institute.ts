@@ -1,21 +1,14 @@
 // Import necessary modules and dependencies
-import { User } from "../database/models/entities/user";
 import { connection } from "../database/connect";
 import { Institute } from "../database/models/entities/instituteSetUp";
 import { Request, Response } from "express";
-import bcrypt from 'bcrypt'
+
 // Define the function to handle the creation of a institute
 export async function CreateInstitute(req: Request, res: Response) {
     try {
         // Get required data from the request body
         const reqBody = req.body;
         const { college_name, college_code, address, email, password, verify_at } = reqBody;
-        if (!college_name) return res.status(400).json({ message: "Please provide college_name" })
-        if (!college_code) return res.status(400).json({ message: "Please provide institute_id" })
-        if (!address) return res.status(400).json({ message: "Please provide address" })
-        if (!email) return res.status(400).json({ message: "Please provide institute_id" })
-        if (!password) return res.status(400).json({ message: "Please provide password" })
-        if (!verify_at) return res.status(400).json({ message: "Please provide verify_at" })
 
         // Check if the institute already exists
         const response = await connection.getRepository(Institute).findOne({ where: { college_name: college_name } });
@@ -23,26 +16,18 @@ export async function CreateInstitute(req: Request, res: Response) {
             return res.status(400).json({ message: "Institute Already Exists" });
 
         // Create a new institute instance
-        let institute = Institute.create({
+        const institute = Institute.create({
             college_name: college_name,
             college_code: college_code,
             address: address,
+            email: email,
+            password: password,
             verify_at: verify_at
         });
 
         // Save the institute in the database
         const savedInstitute = await institute.save();
 
-        if (savedInstitute) {
-            const bcryptSalt = await bcrypt.genSalt(10)
-            const hashedPassword = await bcrypt.hash(password, bcryptSalt)
-            const admin = User.create({
-                name: 'Super Admin',
-                email,
-                password: hashedPassword,
-            })
-            institute['admin'] = admin
-        }
         // Return a success response with the created institute
         return res.status(200).json({ message: "Institute Created", institute: savedInstitute });
 
@@ -67,22 +52,12 @@ export async function GetInstitute(req: Request, res: Response) {
         if (institute_id)
             institute = await connection.getRepository(Institute)
                 .createQueryBuilder(process.env.INSTITUTE_TABLE)
-                .leftJoinAndSelect(process.env.INSTITUTE_TABLE + '.users', 'admin')
-                .where({ id: institute_id })
-                .andWhere("admin.is_admin = true")
-                .getOne();
+                .where({ id: institute_id }).getOne();
         // Get the institute by name
         else if (college_name)
             institute = await connection.getRepository(Institute)
                 .createQueryBuilder(process.env.INSTITUTE_TABLE)
-                .leftJoinAndSelect(process.env.INSTITUTE_TABLE + '.users', 'admin')
                 .where({ college_name: college_name })
-                .andWhere("admin.is_admin = true")
-                .getOne();
-        else
-            institute = await connection.getRepository(Institute)
-                .createQueryBuilder(process.env.INSTITUTE_TABLE)
-                .leftJoinAndSelect(process.env.INSTITUTE_TABLE + '.users', 'admin')
                 .getOne();
 
         // Handle the case where the institute is not found
@@ -122,8 +97,6 @@ export async function DeleteInstitute(req: Request, res: Response) {
                 .delete()
                 .where({ college_name: college_name })
                 .execute();
-        else
-            return res.status(400).json({ message: "Please provide either institute_id or college_name" })
 
         // Check if the institute was not found for deletion
         if (institute.affected === 0)
@@ -153,8 +126,8 @@ export async function UpdateInstitute(req: Request, res: Response) {
         const updateObject: Partial<Institute> = {};
         if (college_name !== undefined) updateObject.college_name = college_name;
         if (college_code !== undefined) updateObject.college_code = college_code;
-        // if (email !== undefined) updateObject.email = email;
-        // if (password !== undefined) updateObject.password = password;
+        if (email !== undefined) updateObject.email = email;
+        if (password !== undefined) updateObject.password = password;
         if (verify_at !== undefined) updateObject.verify_at = verify_at;
         if (address !== undefined) updateObject.address = address;
 

@@ -47,7 +47,8 @@ const Navbar = () => {
           <KTIcon iconName='notification' className='text-dark fs-2' />
         </button> */}
 
-        {/* <div className='card-toolbar'>
+        <div className='card-toolbar'>
+          {/* Menu */}
           <button
             type='button'
             className='btn btn-sm btn-icon border border-secondary border-2 fs-5'
@@ -56,8 +57,11 @@ const Navbar = () => {
           >
             <KTIcon iconName='notification' className='text-dark fs-2' />
           </button>
+          {/* Menu 2 */}
          <NotificationMenu />
-        </div> */}
+          {/* Menu 2 */}
+          {/* Menu */}
+        </div>
 
         <div className={clsx('app-navbar-item', itemClass)}>
           <div
