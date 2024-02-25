@@ -3,7 +3,7 @@ import { connection } from "../database/connect";
 import { Event_Category } from "../database/models/entities/event_category";
 
 
-export async function Create_Event_Category(req: Request, res: Response) {
+export async function CreateEventCategory(req: Request, res: Response) {
     const { name } = req.body;
 
     if (!name) return res.status(400).json({ message: "Please provide with a name for the Event_Category you are Trying to Create" })
@@ -18,7 +18,7 @@ export async function Create_Event_Category(req: Request, res: Response) {
     return res.status(200).json({ message: "Event Category Created" })
 }
 
-export async function Get_Event_Category(req: Request, res: Response) {
+export async function GetEventCategory(req: Request, res: Response) {
     const { id } = req.query;
 
     let event_category: Event_Category | Event_Category[];
@@ -33,7 +33,7 @@ export async function Get_Event_Category(req: Request, res: Response) {
     return res.status(200).json({ message: "Event Category Fetched", event_category })
 }
 
-export async function Delete_Event_Category(req: Request, res: Response) {
+export async function DeleteEventCategory(req: Request, res: Response) {
     const { id } = req.query;
 
     const event_category = await connection.getRepository(Event_Category).createQueryBuilder(process.env.EVENT_CATEGORY_TABLE).where({ id }).getOne();

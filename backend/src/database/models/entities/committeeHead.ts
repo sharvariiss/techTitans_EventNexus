@@ -1,11 +1,12 @@
 // Import necessary modules and classes from the TypeORM library
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { Departments } from "./departments";
+import { Committees } from "./committees";
 
 
 // Define the Entity class for the committee table
-@Entity(`${process.env.COMMITTEE_TABLE}`)
-export class Committee extends BaseEntity {
+@Entity(`${process.env.COMMITTEE_HEAD_TABLE}`)
+export class CommitteeHead extends BaseEntity {
   // Define the primary key column with auto-incrementing value
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,7 +16,10 @@ export class Committee extends BaseEntity {
   name: string;
 
   // Define a column for storing the committee description as text
-  @Column('text')
+  @Column({
+    type:'text',
+    nullable:true
+  })
   description: string;
 
   // Define a many-to-one relationship with the Department entity
@@ -23,12 +27,12 @@ export class Committee extends BaseEntity {
     () => Departments,
     department => department.committee,
     {
-        onDelete: "CASCADE"
+      onDelete: "CASCADE"
     }
   )
   @JoinColumn(
     {
-        name: 'dept_id',
+      name: 'dept_id',
     }
   )
   // Create a property to access the associated Department entity
@@ -41,6 +45,15 @@ export class Committee extends BaseEntity {
   // Define a column for storing the committee goals and objectives as text
   @Column('text')
   goals_and_objectives: string;
+
+  // Commitee relation
+  @OneToOne(
+    () => Committees
+  )
+  @JoinColumn({
+    name: "commitee_id"
+  })
+  commitee: Committees;
 
   // Define columns for created_at and updated_at timestamps
   @CreateDateColumn()
