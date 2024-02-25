@@ -4,7 +4,7 @@
 
 
   <br>
-  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="400">
+  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="200">
   
 
 
