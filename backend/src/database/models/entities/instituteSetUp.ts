@@ -1,6 +1,8 @@
 // Import necessary modules and classes from the TypeORM library
 import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { User } from "./user";
+import { Roles } from "./roles";
+import { Status } from "./status";
 
 
 // Define the Entity class for the Institute table
@@ -32,6 +34,20 @@ export class Institute extends BaseEntity {
     user => user.institute
   )
   users: User[];
+
+  // Define one-to-many relationships with the Roles entity 
+  @OneToMany(
+    () => Roles,
+    role => role.institute
+  )
+  role: Roles[];
+
+  // Define one-to-many relationships with the status entity 
+  @OneToMany(
+    () => Status,
+    status => status.institute
+  )
+  status: Status[];
 
   // Define columns for created_at and updated_at timestamps
   @CreateDateColumn()

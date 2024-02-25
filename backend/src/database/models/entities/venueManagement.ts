@@ -3,6 +3,7 @@ import { Committees } from "./committees";
 import { Departments } from "./departments";
 import { Event } from "./event";
 import { Venue } from "./venue";
+import { Status } from "./status";
 
 @Entity(`${process.env.VENUEMANAGEMENT_TABLE}`)
 export class VenueManagement extends BaseEntity {
@@ -75,6 +76,15 @@ export class VenueManagement extends BaseEntity {
     // Create a property to access the associated VenueManagement entity
     department: Departments;
 
+    // Define one-to-many relationships with the venue management entity 
+    @OneToMany(
+        () => Status,
+        status => status.venueManagement
+    )
+    status: Status[];
+
+    @Column({type:'varchar',nullable:true})
+    final_status: string;
 
     // Define a column for storing the date when the event has started
     @Column('date')
@@ -90,5 +100,8 @@ export class VenueManagement extends BaseEntity {
 
     @Column('date')
     end_time: Date;
+
+    
+
     
 }

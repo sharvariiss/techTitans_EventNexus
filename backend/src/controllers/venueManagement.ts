@@ -19,15 +19,24 @@ export async function CreateVenueManagement(req, res) {
     const endTime = new Date(end_time)
     // Check if Venue Management already exists
 
-    // const venue_Management = await connection
-    //   .getRepository(VenueManagement)
-    //   .createQueryBuilder(process.env.VENUEMANAGEMENT_TABLE)
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.venue', 'venue')
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.event', 'event')
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.committees', 'committees')
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.department', 'department')
-    //   .where({id: venue_id})
-    //   .getOne()
+  //   const ovelap = (
+  //     (startDateTime < otherEvent.endDateTime) &&
+  //     (endDateTime > otherEvent.startDateTime)
+  // )
+  console.log(start_date,end_date,startDate,endDate)
+    const venue_management = await connection
+      .getRepository(VenueManagement)
+      .createQueryBuilder(process.env.VENUEMANAGEMENT_TABLE)
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.venue', 'venue')
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.event', 'event')
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.committees', 'committees')
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.department', 'department')
+      .where("((start_date <= :newEndDate) AND (end_date >= :NewStartDate))",{newEndDate: endDate,NewStartDate:startDate})
+      .getOne()
+
+      // console.log(venue_Management)
+    if(venue_management !== null)
+      return res.status(200).json({message:"Conflicting Schedule"})
     // // check wether Venue Management already exists
     // if (venue_Management) {
     //   return res.status(400).json({message: 'Venue Management Already Exists'})

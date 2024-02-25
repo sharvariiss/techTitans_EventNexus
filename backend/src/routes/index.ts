@@ -12,6 +12,13 @@ import { CreateCommitteeHead, GetCommitteeHead, UpdateCommitteeHead } from '../c
 import { CreateCommittee, GetCommittee } from '../controllers/committee';
 import { CreateEventCategory, DeleteEventCategory, GetEventCategory } from '../controllers/event_category';
 import { CreateFeedBack, DeleteFeedback, GetFeedback } from '../controllers/feedback';
+import { CreateEventRegistration, GetEventRegistration } from '../controllers/eventRegistration';
+import { CreateStatus, GetStatus } from '../controllers/status';
+import Login from '../auth/login';
+import Logout from '../auth/logout';
+import ResetPassword from '../auth/resetPassword';
+import ResetPasswordVerify from '../auth/resetPasswordVerify';
+import AuthCheck from '../auth/authCheck';
 
 
 
@@ -80,6 +87,24 @@ router.delete('/api/delete-venueManagement',DeleteVenueManagement);
 router.post('/api/create-feedback',CreateFeedBack);
 router.get('/api/get-feedback',GetFeedback);
 router.delete('/api/delete-feedback',DeleteFeedback);
+
+router.post('/api/create-event-registration',CreateEventRegistration);
+router.get('/api/get-event-registration',GetEventRegistration);
+
+router.post('/api/create-status',CreateStatus);
+router.get('/api/get-status',GetStatus);
+
+// Login route
+router.get('/api/login', Login);
+
+// Adding authentication middleware
+// router.use(AuthCheck);
+
+// logout, reset password, reset password verify routes
+router.get('/api/logout', Logout);
+router.get('/api/resetPassword', ResetPassword);
+router.get('/api/resetPasswordVerify', ResetPasswordVerify);
+
 
 
 

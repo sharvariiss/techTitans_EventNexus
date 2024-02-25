@@ -6,7 +6,7 @@ import { Roles } from "../database/models/entities/roles";
 export async function CreateRoles(req: Request, res: Response) {
     try {
         // Get required data from the request body
-        const { name } = req.body;
+        const { name , is_permission_required} = req.body;
 
         if (!name) return res.status(400).json({ message: "Please provide with a name for the Role you are trying to create" })
 
@@ -15,7 +15,8 @@ export async function CreateRoles(req: Request, res: Response) {
             return res.status(400).json({ message: "Role Already Exists" })
 
         await Roles.create({
-            name
+            name,
+            is_permission_required
         }).save()
 
         // Response
