@@ -38,13 +38,22 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
-
-# Go into the repository
-$ cd electron-markdownify
+$ [git clone https://github.com/amitmerchant1990/electron-markdownify](https://github.com/sharvariiss/techTitans_EventNexus.git)
 
 # Install dependencies
 $ npm install
+
+# Go into the backend folder
+$ cd backend
+
+# Install dependencies
+$ npm install
+
+# Run the server
+$ npm run dev
+
+# Go back to the previous folder
+$ cd ..
 
 # Run the app
 $ npm start
