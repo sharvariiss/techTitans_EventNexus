@@ -1,5 +1,6 @@
 // Import necessary modules and classes from the TypeORM library
-import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn, OneToOne } from "typeorm";
+import { User } from "./user";
 
 
 // Define the Entity class for the Institute table
@@ -21,33 +22,16 @@ export class Institute extends BaseEntity {
   @Column('varchar')
   address: string;
 
-  // Define a unique constraint for the email column
-  @Column({
-    unique: true
-  })
-  email: string;
-
-  // Define a column for storing the password as text
-  @Column('varchar')
-  password: string;
-
-  // Define a 'forgotPasswordToken' column as a nullable string or null.
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  forgot_password_token: string | null;
-
-  // Define a 'forgotPasswordTokenExpiry' column as a nullable date or null.
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  forgot_password_token_expiry: Date | null;
-
   // Define a column for storing the email as text
   @Column('varchar')
   verify_at: string;
+
+  // Define one-to-many relationships with the User entity 
+  @OneToMany(
+    () => User,
+    user => user.institute
+  )
+  users: User[];
 
   // Define columns for created_at and updated_at timestamps
   @CreateDateColumn()
