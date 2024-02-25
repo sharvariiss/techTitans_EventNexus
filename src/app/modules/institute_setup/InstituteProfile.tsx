@@ -41,33 +41,33 @@ const InstituteProfile = () => {
         const rolesResponse = await axios
           .get<{roles: {name: string}[]}>('http://localhost:5000/api/get-roles')
           .then((response) => {
-            setRoles(response.data.roles.map((role) => role.name))
+            setRoles(response.data.roles.map((role) => role.name + ', '))
             console.log(response)
           })
         const departmentsResponse = await axios
           .get<{departments: {name: string}[]}>('http://localhost:5000/api/get-department')
           .then((response) => {
-            setDepartments(response.data.departments.map((department) => department.name))
+            setDepartments(response.data.departments.map((department) => department.name + ', '))
           })
         const committeesResponse = await axios
           .get<{committee: {name: string}[]}>('http://localhost:5000/api/get-committee')
           .then((response) => {
-            setCommittees(response.data.committee.map((committee) => committee.name))
+            setCommittees(response.data.committee.map((committee) => committee.name + ', '))
           })
         const positionsResponse = await axios
           .get<{positions: {name: string}[]}>('http://localhost:5000/api/get-position')
           .then((response) => {
-            setPositions(response.data.positions.map((position) => position.name))
+            setPositions(response.data.positions.map((position) => position.name + ', '))
           })
         const venuesResponse = await axios
           .get<{venue: {name: string}[]}>('http://localhost:5000/api/get-venue')
           .then((response) => {
-            setVenues(response.data.venue.map((venue) => venue.name))
+            setVenues(response.data.venue.map((venue) => venue.name + ', '))
           })
         const eventCategoriesResponse = await axios
           .get<{event_category: {name: string}[]}>('http://localhost:5000/api/get-event-category')
           .then((response) => {
-            setEventCategories(response.data.event_category.map((category) => category.name))
+            setEventCategories(response.data.event_category.map((category) => category.name + ', '))
           })
       } catch (error) {
         console.error('Error fetching institute data:', error)
