@@ -4,10 +4,8 @@
 
 <h1 align="center">
   <br>
-  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="200">
-  <br>
-  EventNexus
-  <br>
+  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="400">
+  
 </h1>
 
 <p align="center">
@@ -17,6 +15,7 @@
 </p>
 
 ![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
+
 
 ## Key Features
 
