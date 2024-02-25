@@ -3,6 +3,7 @@ import { Institute } from "./instituteSetUp";
 import { Roles } from "./roles";
 import { Departments } from "./departments";
 import { FeedBack } from "./feedback";
+import { EventRegistrations } from "./eventRegistrations";
 
 @Entity(`${process.env.USER_TABLE}`)
 export class User extends BaseEntity {
@@ -65,6 +66,13 @@ export class User extends BaseEntity {
         }
     )
     institute: Institute;
+
+    // Define one-to-many relationships with the User entity 
+    @OneToMany(
+        () => EventRegistrations,
+        eventRegistration => eventRegistration.user
+    )
+    registrations: EventRegistrations[];
 
     // Define a many-to-one relationship with the Roles entity
     @ManyToOne(

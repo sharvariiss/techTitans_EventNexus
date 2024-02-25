@@ -19,15 +19,24 @@ export async function CreateVenueManagement(req, res) {
     const endTime = new Date(end_time)
     // Check if Venue Management already exists
 
-    // const venue_Management = await connection
-    //   .getRepository(VenueManagement)
-    //   .createQueryBuilder(process.env.VENUEMANAGEMENT_TABLE)
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.venue', 'venue')
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.event', 'event')
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.committees', 'committees')
-    //   .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.department', 'department')
-    //   .where({id: venue_id})
-    //   .getOne()
+  //   const ovelap = (
+  //     (startDateTime < otherEvent.endDateTime) &&
+  //     (endDateTime > otherEvent.startDateTime)
+  // )
+  console.log(start_date,end_date,startDate,endDate)
+    const venue_management = await connection
+      .getRepository(VenueManagement)
+      .createQueryBuilder(process.env.VENUEMANAGEMENT_TABLE)
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.venue', 'venue')
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.event', 'event')
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.committees', 'committees')
+      .leftJoinAndSelect(process.env.VENUEMANAGEMENT_TABLE + '.department', 'department')
+      .where("((start_date < :newEndDate) AND (end_date > :NewStartDate))",{newEndDate: endDate,NewStartDate:startDate})
+      .getOne()
+
+      // console.log(venue_Management)
+    if(venue_management !== null)
+      return res.status(200).json({message:"Conflicting Schedule"})
     // // check wether Venue Management already exists
     // if (venue_Management) {
     //   return res.status(400).json({message: 'Venue Management Already Exists'})
@@ -63,21 +72,25 @@ export async function CreateVenueManagement(req, res) {
     }
 
     //Query the Department
-    const departments = await connection
+    const department = await connection
       .getRepository(Departments)
       .createQueryBuilder(process.env.DEPARTMENT_TABLE)
       .where({id: dept_id})
       .getOne()
-    if (!departments) {
+    if (!department) {
       return res.status(400).json({message: 'Department does not Exists'})
     }
 
     // Create a new VenueManagement
     const venueManagement = VenueManagement.create({
+      committees,
+      venue,
+      department,
+      event,      
       start_date: startDate,
       end_date: endDate,
-      start_time: startTime,
-      end_time: endTime,
+      // start_time: startTime,
+      // end_time: endTime,
     })
     // Save the Venue in the database
     const savedVenueManagement = await venueManagement.save()

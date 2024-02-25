@@ -12,6 +12,9 @@ import { CreateCommitteeHead, GetCommitteeHead, UpdateCommitteeHead } from '../c
 import { CreateCommittee, GetCommittee } from '../controllers/committee';
 import { CreateEventCategory, DeleteEventCategory, GetEventCategory } from '../controllers/event_category';
 import { CreateFeedBack, DeleteFeedback, GetFeedback } from '../controllers/feedback';
+import { CreateEventRegistration, GetEventRegistration } from '../controllers/eventRegistration';
+import { CreateStatus, GetStatus } from '../controllers/status';
+import Login from '../auth/login';
 
 
 
@@ -21,6 +24,10 @@ router.get('/',(req,res)=>{
     console.log("Hello");    
     return res.json({message:"Hello World"});
 });
+
+
+router.post('/api/login', Login);
+
 
 router.post('/api/create-Institute', CreateInstitute);
 router.get('/api/get-Institute', GetInstitute);
@@ -42,8 +49,8 @@ router.get('/api/get-event',GetEvent);
 router.delete('/api/delete-event',DeleteEvent);
 
 router.post('/api/create-event-category',CreateEventCategory);
-router.get('/api/get-event',GetEventCategory);
-router.delete('/api/delete-event',DeleteEventCategory);
+router.get('/api/get-event-category',GetEventCategory);
+router.delete('/api/delete-event-category',DeleteEventCategory);
 
 
 router.post('/api/create-position',CreatePositions);
@@ -81,6 +88,10 @@ router.post('/api/create-feedback',CreateFeedBack);
 router.get('/api/get-feedback',GetFeedback);
 router.delete('/api/delete-feedback',DeleteFeedback);
 
+router.post('/api/create-event-registration',CreateEventRegistration);
+router.get('/api/get-event-registration',GetEventRegistration);
 
+router.post('/api/create-status',CreateStatus);
+router.get('/api/get-status',GetStatus);
 
 export default router;
