@@ -4,7 +4,7 @@
 
 <h1 align="center">
   <br>
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/Event_Nexus_Logo.png" alt="EventNexus" width="400"></a>
+  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="200">
   <br>
   EventNexus
   <br>
