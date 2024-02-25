@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { KTIcon } from '../../../../../_metronic/helpers';
 import { ProcessForm } from './ProcessForm';
-import { EventUpdateForm } from './EventUpdateForm';
 
 interface Event {
   id: string;
@@ -32,61 +31,30 @@ const eventsData: Event[] = [
 
 const PendingEvents = () => {
   const [isProcessModalOpen, setIsProcessModalOpen] = useState(false);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
-  const handleOpenViewModal = () => {
+  const handleOpenViewModal = (event: Event) => {
+    setSelectedEvent(event);
     setIsProcessModalOpen(true);
   };
 
   const handleCloseViewModal = () => {
+    setSelectedEvent(null);
     setIsProcessModalOpen(false);
   };
 
-  const handleOpenUpdateModal = () => {
-    setIsUpdateModalOpen(true);
+  const handleApproveConfirmation = () => {
+    console.log("Event Approved");
+    handleCloseViewModal();
   };
 
-  const handleCloseUpdateModal = () => {
-    setIsUpdateModalOpen(false);
-  };
-
-  const handleDeleteConfirmation = (eventId: string) => {
-    setSelectedEventId(eventId);
-  };
-
-  const handleDelete = () => {
-    if (selectedEventId) {
-      const updatedEvents = eventsData.filter((event) => event.id !== selectedEventId);
-      console.log('Deleting event with ID:', selectedEventId);
-      console.log('Remaining events:', updatedEvents);
-      setSelectedEventId(null); // Reset selected event
-    }
+  const handleRejectConfirmation = () => {
+    console.log("Event Rejected");
+    handleCloseViewModal();
   };
 
   return (
     <>
-    {selectedEventId && (
-        <div className='modal fade show' role='dialog' style={{ display: 'block' }} tabIndex={-1}>
-          <div className='modal-dialog modal-dialog-centered'>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <h5 className='modal-title'>Confirm Deletion</h5>
-                <button type='button' className='btn-close' onClick={() => setSelectedEventId(null)}></button>
-              </div>
-              <div className='modal-body'>Are you sure you want to delete this event?</div>
-              <div className='modal-footer'>
-                <button type='button' className='btn btn-secondary' onClick={() => setSelectedEventId(null)}>
-                  Cancel
-                </button>
-                <button type='button' className='btn btn-danger' onClick={handleDelete}>
-                  Delete
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
       <div className='flex-lg-row-fluid my-10 mx-5'>
         <div className='card-body pt-0'>
           <table className='table align-middle table-row-dashed fs-6 gy-5 mb-0' id='kt_roles_view_table'>
@@ -122,32 +90,26 @@ const PendingEvents = () => {
                       data-bs-toggle='tooltip'
                       data-bs-placement='top'
                       title='View'
-                      onClick={handleOpenViewModal}
+                      onClick={() => handleOpenViewModal(event)}
                       style={{ cursor: 'pointer' }}
                     >
                       <KTIcon iconName='eye' className='fs-3 text-primary' />
                     </button>
-                    {isProcessModalOpen && <ProcessForm show={true} onClose={handleCloseViewModal} />}
                     <button
                       className='btn btn-icon btn-active-light-success w-30px h-30px'
-                      data-bs-toggle='tooltip'
-                      data-bs-placement='top'
-                      title='Update'
-                      onClick={handleOpenUpdateModal}
+                      data-bs-toggle='modal'
+                      data-bs-target='#approveModal'
                       style={{ cursor: 'pointer' }}
                     >
-                      <KTIcon iconName='pencil' className='fs-3 text-success'/>
+                      <KTIcon iconName='like' className='fs-3 text-success'/>
                     </button>
-                    {isUpdateModalOpen && <EventUpdateForm show={true} onClose={handleCloseUpdateModal} eventId={selectedEventId}/>}
                     <button
                       className='btn btn-icon btn-active-light-danger w-30px h-30px'
-                      data-kt-permissions-table-filter='delete_row'
-                      onClick={() => handleDeleteConfirmation(event.id)}
-                      data-bs-toggle='tooltip'
-                      data-bs-placement='top'
-                      title='Delete'
+                      data-bs-toggle='modal'
+                      data-bs-target='#rejectModal'
+                      style={{ cursor: 'pointer' }}
                     >
-                      <KTIcon iconName='trash' className='fs-3 text-danger'/>
+                      <KTIcon iconName='dislike' className='fs-3 text-danger'/>
                     </button>
                   </td>
                 </tr>
@@ -156,8 +118,46 @@ const PendingEvents = () => {
           </table>
         </div>
       </div>
-      {/* Confirmation Modal */}
-      
+
+      {/* Approval Modal */}
+      <div className="modal fade" id="approveModal" tabIndex={-1} aria-labelledby="approveModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="approveModalLabel">Approve Event</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to approve this event?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary" onClick={handleApproveConfirmation}>Yes</button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Rejection Modal */}
+      <div className="modal fade" id="rejectModal" tabIndex={-1} aria-labelledby="rejectModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="rejectModalLabel">Reject Event</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to reject this event?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-primary" onClick={handleRejectConfirmation}>Yes</button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {isProcessModalOpen && <ProcessForm show={true} onClose={handleCloseViewModal} />}
     </>
   );
 };

@@ -38,6 +38,12 @@ const SidebarMenuMain = () => {
         title='Create Event'
         fontIcon='bi-app-indicator'
       />
+      <SidebarMenuItem
+        to='/advisory-board'
+        icon='element-11' 
+        title='Advisory Board'
+        fontIcon='bi-app-indicator'
+      />
       
         </>
         )

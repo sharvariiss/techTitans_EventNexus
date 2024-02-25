@@ -61,7 +61,7 @@ const ApprovedEvents = () => {
                 <th className='min-w-50px'>Time</th>
                 <th className='min-w-50px'>Venue</th>
                 <th className='min-w-50px'>Status</th>
-                <th className='text-end px-3 min-w-50px'>Actions</th>
+                <th className='px-3 min-w-50px'>Actions</th>
               </tr>
             </thead>
             <tbody className='fw-semibold text-gray-600'>
@@ -76,7 +76,7 @@ const ApprovedEvents = () => {
                   <td>{event.time}</td>
                   <td>{event.venue}</td>
                   <td>{event.status}</td>
-                  <td className='text-end'>
+                  <td>
                     <button
                       className='btn btn-icon btn-active-light-primary w-30px h-30px'
                       data-bs-toggle='tooltip'
@@ -88,26 +88,7 @@ const ApprovedEvents = () => {
                       <KTIcon iconName='eye' className='fs-3 text-primary' />
                     </button>
                     {isProcessModalOpen && <ProcessForm show={true} onClose={handleCloseModal} />}
-                    <button
-                      className='btn btn-icon btn-active-light-success w-30px h-30px'
-                      data-bs-toggle='tooltip'
-                      data-bs-placement='top'
-                      title='Update'
-                      disabled
-                    >
-                      <KTIcon iconName='pencil' className='fs-3' />
-                    </button>
-                    <button
-                      className='btn btn-icon btn-active-light-danger w-30px h-30px'
-                      data-kt-permissions-table-filter='delete_row'
-                      // onClick={() => handleDeleteRow(user.id)}
-                      data-bs-toggle='tooltip'
-                      data-bs-placement='top'
-                      title='Delete'
-                      disabled
-                    >
-                      <KTIcon iconName='trash' className='fs-3' />
-                    </button>
+                    
                   </td>
                 </tr>
               ))}

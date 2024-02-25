@@ -5,8 +5,7 @@ import {useAuth} from '../core/Auth'
 const SignUp = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    name: '',
     email: '',
     phone: '',
     password: '',
@@ -58,9 +57,8 @@ const SignUp = () => {
           <div className='d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10'>
             <div className='d-flex flex-center flex-lg-start flex-column'>
               <a href='../../demo2/dist/index.html' className='mb-7'>
-                <img alt='Logo' src='assets/media/logos/custom-3.svg' />
+                <img alt='Logo' src='assets/media/logos/event-nexus.png' height={300} />
               </a>
-              <h2 className='text-white fw-normal m-0'>Event Nexus</h2>
             </div>
           </div>
           <div className='d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20'>
@@ -73,26 +71,13 @@ const SignUp = () => {
                 <form onSubmit={loginHandler} className='w-100'>
                   {/* Form fields */}
                   <div className='fv-row mb-8'>
-                    <label className='form-label fw-bolder text-dark fs-6'>First name</label>
+                    <label className='form-label fw-bolder text-dark fs-6'>Name</label>
                     <input
-                      placeholder='First name'
+                      placeholder='Name'
                       type='text'
                       autoComplete='off'
-                      value={formData.firstname}
-                      onChange={(e) => setFormData({...formData, firstname: e.target.value})}
-                      className='form-control bg-transparent'
-                    />
-                    {/* Add error message display logic if needed */}
-                  </div>
-
-                  <div className='fv-row mb-8'>
-                    <label className='form-label fw-bolder text-dark fs-6'>Last name</label>
-                    <input
-                      placeholder='Last name'
-                      type='text'
-                      autoComplete='off'
-                      value={formData.lastname}
-                      onChange={(e) => setFormData({...formData, lastname: e.target.value})}
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
                       className='form-control bg-transparent'
                     />
                     {/* Add error message display logic if needed */}

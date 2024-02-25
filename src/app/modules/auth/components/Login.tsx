@@ -67,13 +67,10 @@ const Login = () => {
         </style>
         <div className='d-flex flex-column flex-column-fluid flex-lg-row'>
           <div className='d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10'>
-            <div className='d-flex flex-center flex-lg-start flex-column'>
+          <div className='d-flex flex-center flex-lg-start flex-column'>
               <a href='../../demo2/dist/index.html' className='mb-7'>
-                <img alt='Logo' src='assets/media/logos/custom-3.svg' />
+                <img alt='Logo' src='assets/media/logos/event-nexus.png' height={300} />
               </a>
-              <h2 className='text-white fw-normal m-0'>
-                Event Nexus
-              </h2>
             </div>
           </div>
           <div className='d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20'>
