@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { KTIcon } from "../../../_metronic/helpers"
-import { RentedCarTable } from "../rent_car/RentedCarTable"
 import { CommitteeForm } from "./CommitteeForm"
 import CommitteeCard from "./CommitteeCard"
 
