@@ -3,44 +3,76 @@ import { connection } from "../database/connect";
 import { Departments } from "../database/models/entities/departments";
 
 
-export async function Create_Departments(req: Request, res: Response) {
-    const { name } = req.body;
+export async function CreateDepartments(req: Request, res: Response) {
+    try {
+        // Get required data from the request body
+        const { name } = req.body;
 
-    if (!name) return res.status(400).json({ message: "Please provide with a name for the Departments you are Trying to Create" })
+        if (!name) return res.status(400).json({ message: "Please provide with a name for the Departments you are Trying to Create" })
 
-    if (await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).where({ name }).getOne())
-        return res.status(400).json({ message: "Departments Already Exists" })
+        // Check if the Department already exists
+        if (await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).where({ name }).getOne())
+            return res.status(400).json({ message: "Departments Already Exists" })
 
-    await Departments.create({
-        name
-    }).save()
+        // Create Department
+        await Departments.create({
+            name
+        }).save()
 
-    return res.status(200).json({ message: "Departments created" })
+        // Response
+        return res.status(200).json({ message: "Departments created" })
+        
+    } catch (error) {
+        // Log and return an error response for any unexpected errors
+        console.log(error.message);
+        return res.status(500).json({ error: error.message });
+    }
 }
 
-export async function Get_Departments(req: Request, res: Response) {
-    const { id } = req.query;
+export async function GetDepartments(req: Request, res: Response) {
+    try {
+        // Get required data from the request body
+        const { id } = req.query;
 
-    let departments: Departments | Departments[];
+        let departments: Departments | Departments[];
 
-    if (id)
-        departments = await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).where({ id }).getOne()
-    else
-        departments = await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).getMany()
+        // Fetch Department
+        if (id)
+            departments = await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).where({ id }).getOne()
+        else
+            departments = await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).getMany()
 
-    if (!departments) return res.status(404).json({ message: "No Departments Found" })
+        if (!departments) return res.status(404).json({ message: "No Departments Found" })
 
-    return res.status(200).json({ message: "Departments Fetched", departments })
+        // Response
+        return res.status(200).json({ message: "Departments Fetched", departments })
+
+    } catch (error) {
+        // Log and return an error response for any unexpected errors
+        console.log(error.message);
+        return res.status(500).json({ error: error.message });
+    }
 }
 
-export async function Delete_Departments(req: Request, res: Response) {
-    const { id } = req.query;
+export async function DeleteDepartments(req: Request, res: Response) {
+    try {
+        // Get required data from the request body
+        const { id } = req.query;
+        if (!id) return res.status(400).json({ message: "Please provide id" })
 
-    const departments = await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).where({ id }).getOne();
+        // Delete Department
+        const department = await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).delete().where({ id }).execute();
 
-    if (!departments) return res.status(404).json({ message: "No Departments Found" })
+        // Check if the User was not found for deletion
+        if (department && department.affected === 0)
+            return res.status(404).json({ message: "Department not found" });
 
-    await connection.getRepository(Departments).createQueryBuilder(process.env.DEPARTMENT_TABLE).delete().where({ id }).execute();
+        // Response
+        return res.status(200).json({ message: "Departments Deleted" })
 
-    return res.status(200).json({ message: "Departments Deleted" })
+    } catch (error) {
+        // Log and return an error response for any unexpected errors
+        console.log(error.message);
+        return res.status(500).json({ error: error.message });
+    }
 }

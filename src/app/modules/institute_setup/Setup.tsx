@@ -12,11 +12,13 @@ interface FormData {
     roles: string[];
     departments: string[];
     positions: string[]; // Add positions property
+    committees: string[];
     venues: string[]; // Add venues property
     eventCategories: string[]; // Add eventCategories property
     role: string;
     department: string;
     position: string; // Add position property
+    committee:string;
     venue: string; // Add venue property
     eventCategory: string; // Add eventCategory property
   }
@@ -32,11 +34,13 @@ interface FormData {
       roles: [],
       departments: [],
       positions: [], // Initialize positions array
+      committees: [],
       venues: [], // Initialize venues array
       eventCategories: [], // Initialize eventCategories array
       role: '',
       department: '',
       position: '', // Initialize position string
+      committee: '',
       venue: '', // Initialize venue string
       eventCategory: '' // Initialize eventCategory string
     });
@@ -66,6 +70,13 @@ interface FormData {
         setFormData({ ...formData, positions: [...formData.positions, position], position: '' });
       }
     };
+
+    const handleAddCommittee = () => {
+      const { committee } = formData;
+      if (committee) {
+        setFormData({ ...formData, committees: [...formData.committees, committee], committee: '' });
+      }
+    };
   
     const handleAddVenue = () => {
       const { venue } = formData;
@@ -85,12 +96,13 @@ interface FormData {
   const navigate = useNavigate()
 
   const handleCancel = () => {
-    navigate(-1)
+    navigate('/institute-profile')
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('Form submitted:', formData)
+    navigate('/institute-profile')
   }
 
   return (
@@ -323,6 +335,44 @@ interface FormData {
                     <div className='p-2 ms-9 border border-secondary border-2 rounded'>
                       <label className='fs-5 fw-bold form-label mb-2'>Positions : </label>
                       <span>{formData.positions.join(', ')}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className='row mb-5'>
+              <div className='col-md-4'>
+                <div className='d-flex flex-column mb-10'>
+                  <label className='fs-5 fw-bold form-label mb-2'>
+                    <span className='required'>Committee</span>
+                  </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-solid'
+                    placeholder='Enter Committee'
+                    name='committee'
+                    value={formData.committee}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className='col-md-8 d-flex flex-column'>
+                <div className='d-flex align-items-start mt-9'>
+                  <button
+                    type='button'
+                    className='btn btn-primary me-3'
+                    style={{width: '150px'}}
+                    onClick={handleAddCommittee}
+                  >
+                    <KTIcon iconName='plus' className='fs-2' />
+                    Committee
+                  </button>
+                  {/* Display roles */}
+                  {formData.committees.length > 0 && (
+                    <div className='p-2 ms-9 border border-secondary border-2 rounded'>
+                      <label className='fs-5 fw-bold form-label mb-2'>Committees : </label>
+                      <span>{formData.committees.join(', ')}</span>
                     </div>
                   )}
                 </div>
