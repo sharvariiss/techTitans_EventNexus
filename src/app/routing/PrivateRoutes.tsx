@@ -6,8 +6,14 @@ import TopBarProgress from 'react-topbar-progress-indicator'
 // import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
-import { RentCar } from '../modules/rent_car/RentCar'
+import Setup from '../modules/institute_setup/Setup'
 import { Committee } from '../modules/committees/Committee'
+import { CommitteeEvent } from '../modules/event_management/committee/CommitteeEvent'
+import { AdvisoryBoard } from '../modules/event_management/advisory/AdvisoryBoard'
+import { VenueManagement } from '../modules/VenueM/VenueManagement'
+import { ForStudents } from '../modules/VenueM/ForStudents'
+import InstituteProfile from '../modules/institute_setup/InstituteProfile'
+
 
 const PrivateRoutes = () => {
 
@@ -15,10 +21,15 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/Committee' />} />
+        <Route path='auth/*' element={<Navigate to='/institute-profile' />} />
         {/* Pages */}
-        <Route path='rent-car' element={<RentCar />} />
+        <Route path='institute-setup' element={<Setup />} />
+        <Route path='institute-profile' element={<InstituteProfile />} />
         <Route path='committee' element={<Committee />} />
+        <Route path='create-event' element={<CommitteeEvent />} />
+        <Route path='advisory-board' element={<AdvisoryBoard />} />
+        <Route path='venuemanagement' element={<VenueManagement />} />
+        <Route path='forstudents' element={<ForStudents />} />
         </Route>
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
