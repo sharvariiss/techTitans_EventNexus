@@ -14,7 +14,7 @@
   <a href="#credits">Credits</a> •
 </p>
 
-![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
+![screenshot](https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexux_gif.gif)
 
 
 ## Key Features
