@@ -1,6 +1,17 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Link, Navigate, useNavigate} from 'react-router-dom'
 import {useAuth} from '../core/Auth'
+import axios from 'axios'
+
+interface Role {
+  id: number
+  name: string
+}
+
+interface Department {
+  id: number
+  name: string
+}
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -12,26 +23,67 @@ const SignUp = () => {
     changepassword: '',
     role: '',
     department: '',
-    acceptTerms: false,
   })
 
-  const loginHandler = (e) => {
+  const [roles, setRoles] = useState<Role[]>([])
+  const [departments, setDepartments] = useState<Department[]>([])
+  const [loadingRoles, setLoadingRoles] = useState(true)
+  const [loadingDepartments, setLoadingDepartments] = useState(true)
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const response = await axios.get<{roles: Role[]}>('http://localhost:5000/api/get-roles')
+        setRoles(response.data.roles)
+        setLoadingRoles(false)
+      } catch (error) {
+        console.error('Error fetching roles:', error)
+        // Handle error here
+      }
+    }
+
+    const fetchDepartments = async () => {
+      try {
+        const response = await axios.get<{departments: Department[]}>(
+          'http://localhost:5000/api/get-department'
+        )
+        setDepartments(response.data.departments)
+        setLoadingDepartments(false)
+      } catch (error) {
+        console.error('Error fetching departments:', error)
+        // Handle error here
+      }
+    }
+
+    fetchRoles()
+    fetchDepartments()
+  }, [])
+
+  const loginHandler = async (e) => {
     e.preventDefault()
-    navigate('/auth')
+    try {
+      const response = await axios.post('http://localhost:5000/api/create-user', {
+        institute_id: 1,
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        phone_number: formData.phone,
+        role_id: parseInt(formData.role), // Parse role_id to integer
+        department_id: parseInt(formData.department), 
+      })
+      console.log(response.data) // You can handle success response here
+      navigate('/auth') // Redirect after successful signup
+    } catch (error) {
+      console.error('Error signing up:', error)
+      // Handle error here, e.g., show error message to the user
+    }
   }
 
   return (
     <div>
       <base href='../../../' />
       <meta charSet='utf-8' />
-      <meta
-        name='description'
-        content='The most advanced Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions. Grab your copy now and get life-time updates for free.'
-      />
-      <meta
-        name='keywords'
-        content='metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon'
-      />
+
       <meta name='viewport' content='width=device-width, initial-scale=1' />
       <meta property='og:locale' content='en_US' />
       <meta property='og:type' content='article' />
@@ -137,30 +189,47 @@ const SignUp = () => {
 
                   <div className='fv-row mb-8'>
                     <label className='form-label fw-bolder text-dark fs-6'>Role</label>
-                    <select
-                      value={formData.role}
-                      onChange={(e) => setFormData({...formData, role: e.target.value})}
-                      className='form-select bg-transparent'
-                    >
-                      <option value=''>Select Role</option>
-                      <option value='admin'>Admin</option>
-                      <option value='user'>User</option>
-                    </select>
+                    {loadingRoles ? (
+                      <select className='form-select bg-transparent' disabled>
+                        <option>Loading roles...</option>
+                      </select>
+                    ) : (
+                      <select
+                        value={formData.role}
+                        onChange={(e) => setFormData({...formData, role: e.target.value})}
+                        className='form-select bg-transparent'
+                      >
+                        <option value=''>Select Role</option>
+                        {roles.map((role) => (
+                          <option key={role.id} value={role.id}>
+                            {role.name}
+                          </option>
+                        ))}
+                      </select>
+                    )}
                     {/* Add error message display logic if needed */}
                   </div>
 
                   <div className='fv-row mb-8'>
                     <label className='form-label fw-bolder text-dark fs-6'>Department</label>
-                    <select
-                      value={formData.department}
-                      onChange={(e) => setFormData({...formData, department: e.target.value})}
-                      className='form-select bg-transparent'
-                    >
-                      <option value=''>Select Department</option>
-                      <option value='engineering'>Engineering</option>
-                      <option value='marketing'>Marketing</option>
-                      <option value='finance'>Finance</option>
-                    </select>
+                    {loadingDepartments ? (
+                      <select className='form-select bg-transparent' disabled>
+                        <option>Loading departments...</option>
+                      </select>
+                    ) : (
+                      <select
+                        value={formData.department}
+                        onChange={(e) => setFormData({...formData, department: e.target.value})}
+                        className='form-select bg-transparent'
+                      >
+                        <option value=''>Select Department</option>
+                        {departments.map((department) => (
+                          <option key={department.id} value={department.id}>
+                            {department.name}
+                          </option>
+                        ))}
+                      </select>
+                    )}
                     {/* Add error message display logic if needed */}
                   </div>
 

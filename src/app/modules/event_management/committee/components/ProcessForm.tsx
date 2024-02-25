@@ -33,7 +33,7 @@ const ProcessForm: React.FC<ProcessFormModalProps> = ({ show, onClose }) => {
                       <div className='btn btn-icon bg-light d-flex justify-content-center align-items-center rounded-circle w-50px h-50px'>
                         <KTIcon iconName='like' className='fs-2hx text-success' />
                       </div>
-                      <span className='ms-3 fs-3'>Principle 1</span>
+                      <span className='ms-3 fs-3'>Principle </span>
                     </div>
                   </div>
                   <div className='mb-10'>
@@ -41,7 +41,7 @@ const ProcessForm: React.FC<ProcessFormModalProps> = ({ show, onClose }) => {
                       <div className='btn btn-icon bg-light d-flex justify-content-center align-items-center rounded-circle w-50px h-50px'>
                         <KTIcon iconName='dislike' className='fs-2hx text-danger' />
                       </div>
-                      <span className='ms-3 fs-3'>Principle 2</span>
+                      <span className='ms-3 fs-3'>HOD</span>
                     </div>
                   </div>
                 </div>
