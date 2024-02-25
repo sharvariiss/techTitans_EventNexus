@@ -4,7 +4,7 @@
 
 
   <br>
-  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="200">
+  <img src="https://github.com/sharvariiss/techTitans_EventNexus/blob/dev/event_nexus.jpg" alt="EventNexus" width="300">
   
 
 
@@ -69,6 +69,9 @@ This software uses the following open source packages:
 
 ## PPT 
 (https://docs.google.com/presentation/d/15mmiQlUfJV5u262YTb0Op--ptZrWEueA/edit?usp=sharing&ouid=104026747975585479722&rtpof=true&sd=true)
+
+## Video
+
 
 
 
